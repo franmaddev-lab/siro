@@ -192,7 +192,8 @@ const site: SiteConfig = {
   whyUs: {
     enabled: true,
     eyebrow: 'Why SiRo’',
-    heading: 'A little corner of Italy in Rochdale.',
+    // The new line only applies on phones; computers show it on one line.
+    heading: 'A little corner of Italy\nin Rochdale.',
     points: [
       { title: 'Cooked fresh by Luca', text: 'Our chef cooks Italian classics his way, with good ingredients and bold flavours.' },
       { title: 'Looked after by Danilo', text: 'Warm, personal service from the moment you walk in.' },

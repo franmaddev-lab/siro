@@ -148,4 +148,6 @@ h3 { font-size: 0.95rem !important; }
 main .section > .container > h2, main .section .head h2, #about h2, #why h2, #follow h2, #contact > .container > h2 {
   font-size: clamp(1.6rem, 3.4vw, 2.5rem) !important; -webkit-text-stroke: 0.5px currentColor; line-height: 1.15;
 }
-@media (max-width: 899px) { #why h2 { white-space: nowrap; letter-spacing: 0.02em; font-size: calc((100vw - 2.25rem) / 26.5) !important; } }
+/* Titles with a planned break: the break only applies on phones. */
+@media (min-width: 900px) { .phone-break { display: none; } }
+@media (max-width: 899px) { #why h2 { white-space: normal; } }

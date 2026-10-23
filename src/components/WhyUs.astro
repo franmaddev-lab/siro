@@ -7,7 +7,7 @@ const w = site.whyUs
     <div class="container why" class:list={{ 'has-stats': w.stats.length > 0 }}>
       <div>
         {w.eyebrow && <p class="eyebrow">{w.eyebrow}</p>}
-        <h2>{w.heading}</h2>
+        <h2>{w.heading.split('\n').map((line, i) => <>{i > 0 && <br class="phone-break" />}{line}{i === 0 && w.heading.includes('\n') && ' '}</>)}</h2>
         <ul class="points">
           {w.points.map((p) => (
             <li>
