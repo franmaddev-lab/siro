@@ -1,6 +1,6 @@
 ---
 import site from '../../site.config'
-import LogoWord from './LogoWord.astro'
+import LogoSplit from './LogoSplit.astro'
 const links = [
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
   ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
@@ -12,7 +12,7 @@ const links = [
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
       {site.logo.svg
-        ? <span class="lockup"><LogoWord /><span class="sub"><span>Mangia &amp; Bevi</span><span>Café Bistrot</span></span></span>
+        ? <LogoSplit />
         : site.name}
     </a>
     <div class="right">
@@ -30,7 +30,7 @@ const links = [
   .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.5rem; padding: 0.9rem 0; }
   .brand { display: block; color: #f2bfcb; line-height: 0; text-decoration: none; }
   .lockup { display: inline-flex; align-items: center; gap: 0.9rem; }
-  .brand :global(svg) { height: 2.6rem; width: auto; }
+  .brand :global(svg) { height: 3.4rem; width: auto; }
   .sub { display: flex; flex-direction: column; gap: 0.35rem; padding-left: 0.9rem; border-left: 1.5px solid color-mix(in srgb, #f2bfcb 60%, transparent); font-family: var(--font-body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; line-height: 1; color: var(--brand-text); }
   nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
   nav a { color: var(--brand-text); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
@@ -43,7 +43,7 @@ const links = [
   .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
   .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   @media (max-width: 899px) {
-    .brand :global(svg) { height: 2.1rem; }
+    .brand :global(svg) { height: 2.9rem; }
     .sub { font-size: 0.55rem; letter-spacing: 0.28em; gap: 0.3rem; padding-left: 0.7rem; }
     .lockup { gap: 0.7rem; }
     .right { display: flex; }
