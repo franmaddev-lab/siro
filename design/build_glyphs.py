@@ -7,8 +7,9 @@ def load(n):
     s=H/im.height
     im=im.resize((max(1,round(im.width*s)),H),Image.LANCZOS)
     # Slightly thinner than the sign so the small counters (A, B, R, O...) stay open.
-    return thin(im.point(lambda v:255 if v>140 else 0))
-def thin(im, blur=10, cut=230):
+    # The & and the É accent have thin joins that break at the lightest weight.
+    return thin(im.point(lambda v:255 if v>140 else 0), *((10, 230) if n in ('AMP',) else ()))
+def thin(im, blur=12, cut=242):
     # Pad first so the outer edges thin too (letters are cropped tight), then crop back.
     P=30; pad=Image.new('L',(im.width+2*P,im.height+2*P),0); pad.paste(im,(P,P))
     t=pad.filter(ImageFilter.GaussianBlur(blur)).point(lambda v:255 if v>cut else 0)
@@ -17,7 +18,7 @@ G={}
 for k,src in {'A':'A','B':'B','C':'C','E':'E2','F':'F','G':'G','I':'I','M':'M','N':'N','O':'O','R':'R','S':'S','T':'T','V':'V','&':'AMP'}.items():
     G[k]=load(src)
 # É keeps its accent above cap height
-ea=Image.open('raw/Eacute.png').convert('L'); s=H/ (ea.height*0.78); ea=thin(ea.resize((round(ea.width*s),round(ea.height*s)),Image.LANCZOS).point(lambda v:255 if v>140 else 0))
+ea=Image.open('raw/Eacute.png').convert('L'); s=H/ (ea.height*0.78); ea=thin(ea.resize((round(ea.width*s),round(ea.height*s)),Image.LANCZOS).point(lambda v:255 if v>140 else 0), 10, 230)
 G['É']=ea
 I=np.array(G['I'])>0
 sw=int(np.median(I.sum(axis=1)[H//4:3*H//4]))  # stem width (after thinning, so drawn letters match)
