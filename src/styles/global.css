@@ -89,7 +89,7 @@ blockquote { font-weight: 300; }
 @media (max-width: 899px) {
   section[id] { scroll-margin-top: 5rem; }
   .hero { padding: 2.5rem 0 3rem !important; }
-  .hero .hero-logo { order: -1; max-width: 15rem !important; }
+  .hero .hero-logo { display: none; }
   .hero .actions { display: grid !important; grid-template-columns: 1fr 1fr; gap: 0.6rem !important; }
   .hero .actions .btn { justify-content: center; text-align: center; padding-left: 0.5rem; padding-right: 0.5rem; white-space: nowrap; letter-spacing: 0.06em; font-size: 0.8rem; }
   .hero .break { display: none; }
