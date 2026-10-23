@@ -160,7 +160,7 @@ const site: SiteConfig = {
   },
 
   hero: {
-    eyebrow: "Mangia & Bevi · Café Bistrot",
+    eyebrow: '',
     // A new line in the heading (\n) starts a new line on the page.
     heading: 'Come for the food,\nstay for the experience.',
     text: 'Fresh Italian cooking and warm, personal service on Baillie Street.\nBrunch from 10am, small plates, risotto and pasta into the evening.',
@@ -208,7 +208,7 @@ const site: SiteConfig = {
     priceList: {
       mode: 'live',
       heading: 'Menu',
-      intro: 'A taste of the menu.\nAllergies: please let our staff know.',
+      intro: 'Allergies: please let our staff know.',
       items: [
         { group: 'Breakfast & brunch, 10am to 2pm', name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '£12.75' },
         { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil béarnaise on sourdough', price: '£8.75' },
@@ -241,9 +241,6 @@ const site: SiteConfig = {
         { src: '/images/pappardelle.jpg', alt: 'Pappardelle with prawns' },
         { src: '/images/croquettes.jpg', alt: 'Croquettes being plated' },
         { src: '/images/sfincione.jpg', alt: 'Sicilian sfincione' },
-        { src: '/images/tiramisu.jpg', alt: 'Tiramisu' },
-        { src: '/images/spritz.jpg', alt: "A drink being poured at SiRo'" },
-        { src: '/images/shopfront.jpg', alt: "The SiRo' sign above the door" },
       ],
     },
     reviews: {

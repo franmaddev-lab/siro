@@ -6,13 +6,64 @@ const a = site.addons.gallery
 {a.mode !== 'off' && a.images.length > 0 && (
   <section class="section" id="gallery">
     <div class="container">
-      <h2>{a.heading || 'Our work'} <DemoTag mode={a.mode} /></h2>
-      <div class="grid cols-3">
-        {a.images.map((i) => <img src={i.src} alt={i.alt} loading="lazy" />)}
+      <div class="head">
+        <h2>{a.heading || 'Our work'} <DemoTag mode={a.mode} /></h2>
+        <p class="arrows"><button type="button" data-dir="-1" aria-label="Previous photos">←</button><button type="button" data-dir="1" aria-label="More photos">→</button></p>
       </div>
+    </div>
+    <!-- One row that drifts sideways on its own; swipe, drag, scroll or use the arrows to move faster. -->
+    <div class="strip" data-strip tabindex="0" aria-label="Photos, scroll sideways for more">
+      {[...a.images, ...a.images].map((i, n) => (
+        <img src={i.src} alt={n < a.images.length ? i.alt : ''} aria-hidden={n >= a.images.length ? 'true' : undefined} loading="lazy" draggable="false" />
+      ))}
     </div>
   </section>
 )}
 <style>
-  img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+  .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+  .head h2 { margin: 0; }
+  .arrows { display: flex; gap: 0.5rem; margin: 0; }
+  .arrows button { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 2px solid var(--brand); background: transparent; color: var(--brand); font-size: 1.2rem; cursor: pointer; }
+  .arrows button:hover { background: var(--brand); color: var(--brand-text); }
+  .strip { display: flex; gap: 0.75rem; overflow-x: auto; scrollbar-width: none; padding: 0 max(1rem, calc((100vw - 1100px) / 2)); cursor: grab; }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip.dragging { cursor: grabbing; }
+  img { flex: none; width: clamp(14rem, 30vw, 22rem); aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); user-select: none; }
 </style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-strip]').forEach((strip) => {
+    const section = strip.closest('section')
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let pausedUntil = 0
+    const pause = (ms = 2500) => { pausedUntil = performance.now() + ms }
+    // The photos are listed twice, so jumping back by half keeps the loop seamless.
+    const wrap = () => {
+      const half = strip.scrollWidth / 2
+      if (strip.scrollLeft >= half) strip.scrollLeft -= half
+      else if (strip.scrollLeft <= 0 && half > 0) strip.scrollLeft += half
+    }
+    let last = performance.now(), carry = 0, boost = 0
+    const tick = (now: number) => {
+      const dt = now - last; last = now
+      if (!reduce && now > pausedUntil && !document.hidden) carry += dt * 0.03
+      // Arrow presses glide quickly through `boost` instead of smooth scrollBy, so the loop stays seamless.
+      if (Math.abs(boost) > 0.5) { const b = boost * 0.12; carry += b; boost -= b }
+      const step = Math.trunc(carry)
+      if (step) { strip.scrollLeft += step; carry -= step; wrap() }
+      requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+    strip.addEventListener('scroll', () => wrap(), { passive: true })
+    ;['touchstart', 'wheel', 'keydown', 'focusin'].forEach((t) => strip.addEventListener(t, () => pause(), { passive: true }))
+    strip.addEventListener('mouseenter', () => pause(60000))
+    strip.addEventListener('mouseleave', () => pause(800))
+    // Drag with the mouse on computers.
+    let down = false, startX = 0, startLeft = 0
+    strip.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; startX = e.clientX; startLeft = strip.scrollLeft; strip.classList.add('dragging') })
+    window.addEventListener('pointermove', (e) => { if (!down) return; strip.scrollLeft = startLeft - (e.clientX - startX); pause() })
+    window.addEventListener('pointerup', () => { down = false; strip.classList.remove('dragging') })
+    section?.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((b) =>
+      b.addEventListener('click', () => { pause(4000); boost += Number(b.dataset.dir) * strip.clientWidth * 0.7 }),
+    )
+  })
+</script>
