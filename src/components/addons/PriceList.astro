@@ -12,7 +12,7 @@ for (const i of a.items) {
   <section class="section alt" id="prices">
     <div class="container">
       <h2>{a.heading || 'Prices'} <DemoTag mode={a.mode} /></h2>
-      {a.intro && <p class="lead">{a.intro}</p>}
+      {a.intro && <p class="lead">{a.intro.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>}
       {groups.filter((g) => g.name).length > 1 && (
         <div class="pills" role="group" aria-label="Filter the menu">
           <button type="button" aria-pressed="true" data-filter="">All</button>

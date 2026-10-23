@@ -7,7 +7,6 @@ const links = [
   { href: '/#about', label: 'Who we are' },
   { href: '/#contact', label: 'Get in touch' },
 ]
-const book = site.addons.booking.mode !== 'off'
 ---
 <header class="site-header" data-header>
   <div class="container bar">
@@ -15,14 +14,12 @@ const book = site.addons.booking.mode !== 'off'
       {site.logo.svg ? <LogoFull /> : site.name}
     </a>
     <div class="right">
-      {book && <a class="btn small book-mobile" href="/#book">{site.hero.cta}</a>}
       <button type="button" class="burger" aria-expanded="false" aria-controls="main-nav" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
     <nav id="main-nav" aria-label="Main">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      {book && <a class="btn small book-desktop" href="/#book">{site.hero.cta}</a>}
     </nav>
   </div>
 </header>
@@ -48,7 +45,11 @@ const book = site.addons.booking.mode !== 'off'
     nav a { padding: 0.9rem 0; font-size: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
     .site-header.open nav { display: flex; }
   }
-  @media (max-width: 360px) { .book-mobile { display: none; } }
+  /* Phones, home page: the big logo sits in the hero; once it scrolls away the small one appears here. */
+  @media (max-width: 899px) {
+    .brand { transition: opacity 0.35s ease, transform 0.35s ease; transform-origin: left center; }
+    .site-header.logo-in-hero .brand { opacity: 0; transform: translateY(1.5rem) scale(1.6); pointer-events: none; }
+  }
 </style>
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]')
@@ -56,4 +57,9 @@ const book = site.addons.booking.mode !== 'off'
   const setOpen = (open: boolean) => { header?.classList.toggle('open', open); burger?.setAttribute('aria-expanded', String(open)) }
   burger?.addEventListener('click', () => setOpen(!header?.classList.contains('open')))
   header?.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+  // Home page on phones: hide the header logo while the hero logo is on screen.
+  const heroLogo = document.querySelector('.hero-logo')
+  if (header && heroLogo && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => header.classList.toggle('logo-in-hero', e.isIntersecting), { rootMargin: '-60px 0px 0px 0px' }).observe(heroLogo)
+  }
 </script>

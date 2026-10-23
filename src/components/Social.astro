@@ -2,7 +2,7 @@
 import site from '../../site.config'
 import SocialIcons from './SocialIcons.astro'
 const s = site.social
-const photos = site.addons.gallery.images.slice(0, 4)
+const photos = site.addons.gallery.images.slice(-4)
 ---
 {s.showSection && (s.instagram || s.facebook) && (
   <section class="section alt" id="follow">

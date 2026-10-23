@@ -21,10 +21,10 @@ const h = site.hero
     <div class="container hero-grid">
       <div>
         {h.eyebrow && <p class="eyebrow">{h.eyebrow}</p>}
-        <h1>{h.heading}</h1>
-        <p class="lead">{h.text}</p>
+        <h1>{h.heading.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h1>
+        <p class="lead">{h.text.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>
         <p class="actions">
-          {site.addons.priceList.mode !== 'off' && <a class="btn" href="#prices"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M7 3v8a3 3 0 0 0 3 3v7M10 3v6M13 3v8M17 3c-1.7 1.5-2.5 4-2.5 7H18V21"/></svg>See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
+          {site.addons.priceList.mode !== 'off' && <a class="btn" href="#prices"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 6.5C10.5 5 8 4.5 3 4.5v14c5 0 7.5.5 9 2 1.5-1.5 4-2 9-2v-14c-5 0-7.5.5-9 2Zm0 0v14"/></svg>See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
           <a class="btn" href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4Z"/></svg>Get in touch</a>
         </p>
         {h.badges.length > 0 && <ul class="badges">{h.badges.map((b) => <li>{b}</li>)}</ul>}
@@ -37,18 +37,20 @@ const h = site.hero
     </div>
   </section>
 
+  {site.services.length > 0 && (
   <section class="section" id="services">
-    <div class="container">
-      {ss.eyebrow && <p class="eyebrow">{ss.eyebrow}</p>}
-      <h2>{ss.heading}</h2>
-      {ss.intro && <p class="lead">{ss.intro}</p>}
-      <div class="grid cols-3 services-grid">
-        {site.services.map((s) => (
-          <div class="card"><h3>{s.name}</h3><p class="muted">{s.text}</p></div>
-        ))}
+      <div class="container">
+        {ss.eyebrow && <p class="eyebrow">{ss.eyebrow}</p>}
+        <h2>{ss.heading}</h2>
+        {ss.intro && <p class="lead">{ss.intro}</p>}
+        <div class="grid cols-3 services-grid">
+          {site.services.map((s) => (
+            <div class="card"><h3>{s.name}</h3><p class="muted">{s.text}</p></div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <PriceList />
   <Reviews />
@@ -78,7 +80,7 @@ const h = site.hero
 </Base>
 <style>
   .hero { padding: clamp(3.5rem, 9vw, 6.5rem) 0; background: var(--surface); }
-  .hero h1 { font-weight: 800; max-width: 16ch; }
+  .hero h1 { font-weight: 800; max-width: none; }
   .badges { list-style: none; padding: 0; margin: 1.75rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-weight: 600; }
   .badges li::before { content: '✓'; color: var(--brand); margin-right: 0.5rem; }
   .hero .break { flex-basis: 100%; height: 0; }

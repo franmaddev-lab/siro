@@ -161,8 +161,9 @@ const site: SiteConfig = {
 
   hero: {
     eyebrow: "Mangia & Bevi · Café Bistrot",
-    heading: 'Come for the food, stay for the experience.',
-    text: 'Fresh Italian cooking and warm, personal service on Baillie Street. Brunch from 10am, small plates, risotto and pasta into the evening.',
+    // A new line in the heading (\n) starts a new line on the page.
+    heading: 'Come for the food,\nstay for the experience.',
+    text: 'Fresh Italian cooking and warm, personal service on Baillie Street.\nBrunch from 10am, small plates, risotto and pasta into the evening.',
     image: '/images/logo-wall.jpg',
     showLogo: true,
     cta: 'Book a table',
@@ -171,11 +172,8 @@ const site: SiteConfig = {
 
   servicesSection: { eyebrow: 'Eat & drink', heading: 'From morning coffee to an evening glass of wine.', intro: '' },
 
-  services: [
-    { name: 'Breakfast & brunch', text: "SiRo' Benedict, avocado with stracciatella, French toast with Nutella and pistachio, and pastries at the bar." },
-    { name: 'Afternoons & evenings', text: 'Nibbles to share, saffron risotto with prawns, slow-cooked spezzatino, lasagna and fresh fettuccine.' },
-    { name: 'Celebrations', text: 'Birthdays, anniversaries and wedding parties: tell us the date and we will set the table.' },
-  ],
+  // Empty hides the "Eat & drink" section.
+  services: [],
 
   whyUs: {
     enabled: true,
@@ -210,7 +208,7 @@ const site: SiteConfig = {
     priceList: {
       mode: 'live',
       heading: 'Menu',
-      intro: 'A taste of the menu. Allergies: please let our staff know.',
+      intro: 'A taste of the menu.\nAllergies: please let our staff know.',
       items: [
         { group: 'Breakfast & brunch, 10am to 2pm', name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '£12.75' },
         { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil béarnaise on sourdough', price: '£8.75' },
@@ -234,10 +232,18 @@ const site: SiteConfig = {
     },
     gallery: {
       mode: 'live',
-      heading: "Inside SiRo'",
+      heading: "From Luca's kitchen",
+      // From @siro.16 on Instagram. Ask SiRo' for the originals (and permission) before going live.
       images: [
-        { src: '/images/logo-wall.jpg', alt: "The SiRo' Mangia & Bevi sign" },
-        { src: '/images/celebration.jpg', alt: 'A table set for a wedding celebration' },
+        { src: '/images/cod.jpg', alt: 'Cod on roasted pepper purée with hand-cooked potato crisps' },
+        { src: '/images/burrata.jpg', alt: 'Burrata with crispy bread on roasted pepper purée' },
+        { src: '/images/lamb.jpg', alt: 'Lamb chops with pea purée and roast potatoes' },
+        { src: '/images/pappardelle.jpg', alt: 'Pappardelle with prawns' },
+        { src: '/images/croquettes.jpg', alt: 'Croquettes being plated' },
+        { src: '/images/sfincione.jpg', alt: 'Sicilian sfincione' },
+        { src: '/images/tiramisu.jpg', alt: 'Tiramisu' },
+        { src: '/images/spritz.jpg', alt: "A drink being poured at SiRo'" },
+        { src: '/images/shopfront.jpg', alt: "The SiRo' sign above the door" },
       ],
     },
     reviews: {
