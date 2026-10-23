@@ -49,6 +49,10 @@ const links = [
   @media (max-width: 899px) {
     .brand { transition: opacity 0.35s ease, transform 0.35s ease; transform-origin: left center; }
     .site-header.logo-in-hero .brand { opacity: 0; transform: translateY(1.5rem) scale(1.6); pointer-events: none; }
+    /* At the top the header melts into the green hero (only the menu button shows), then turns solid. */
+    .site-header { transition: background-color 0.35s, box-shadow 0.35s, border-color 0.35s; }
+    .site-header.logo-in-hero:not(.open) { background: var(--brand); border-bottom-color: transparent; box-shadow: none; }
+    .site-header.logo-in-hero:not(.open) .burger span { background: var(--brand-text); }
   }
 </style>
 <script>

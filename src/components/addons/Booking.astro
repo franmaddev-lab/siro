@@ -2,7 +2,7 @@
 import site from '../../../site.config'
 import DemoTag from '../DemoTag.astro'
 const a = site.addons.booking
-const times = ['9:00', '10:30', '12:00', '14:00', '15:30']
+const times = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30']
 ---
 {a.mode !== 'off' && (
   <section class="section alt" id="book">
@@ -51,9 +51,10 @@ const times = ['9:00', '10:30', '12:00', '14:00', '15:30']
       var days = form.querySelector('[data-days]')
       var d = new Date()
       var added = 0
-      while (added < 5) {
+      // The next two weeks, skipping Sunday and Monday (closed).
+      while (added < 10) {
         d.setDate(d.getDate() + 1)
-        if (d.getDay() === 0) continue
+        if (d.getDay() === 0 || d.getDay() === 1) continue
         var text = d.toLocaleDateString(document.documentElement.lang || 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
         var label = document.createElement('label')
         label.className = 'chip'
@@ -78,10 +79,15 @@ const times = ['9:00', '10:30', '12:00', '14:00', '15:30']
 
 <!-- Global because the day chips are created in the browser, where scoped styles do not reach. -->
 <style is:global>
-  .booking-demo { max-width: 40rem; }
+  .booking-demo { max-width: min(40rem, 100%); min-width: 0; box-sizing: border-box; }
+  .booking-demo .chips { max-width: 100%; }
   .booking-demo fieldset { border: 0; padding: 0; margin: 0 0 1rem; }
   .booking-demo legend { font-weight: 600; margin-bottom: 0.4rem; padding: 0; }
-  .booking-demo .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  /* One row each for days and times; swipe or scroll sideways for more. */
+  .booking-demo .chips { display: flex; flex-wrap: nowrap; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 0.4rem; scrollbar-width: thin; }
+  .booking-demo .chip { flex: none; scroll-snap-align: start; position: relative; }
+  .booking-demo .chip span { white-space: nowrap; }
+  .booking-demo fieldset { min-width: 0; }
   .booking-demo .chip { margin: 0; font-weight: 400; }
   .booking-demo .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; }
   .booking-demo .chip span { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.4rem 0.9rem; border: 1px solid color-mix(in srgb, var(--ink) 30%, transparent); border-radius: var(--radius); background: var(--paper); cursor: pointer; }
