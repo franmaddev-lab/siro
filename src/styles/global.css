@@ -130,3 +130,5 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
 /* Everything set in capitals uses SiRo Sign (it is a capitals-only font). Wide and bold, so
    less letter-spacing than the body font needed. Characters it lacks (digits, brackets) fall back. */
 .eyebrow, h3, .btn, .tag-caps { font-family: 'SiRo Sign', var(--font-body) !important; font-weight: 400 !important; letter-spacing: 0.12em !important; }
+/* SiRo Sign is wide, so section titles get the full width instead of wrapping early. */
+h2 { max-width: none !important; }

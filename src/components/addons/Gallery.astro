@@ -42,6 +42,10 @@ const a = site.addons.gallery
       if (strip.scrollLeft >= half) strip.scrollLeft -= half
       else if (strip.scrollLeft <= 0 && half > 0) strip.scrollLeft += half
     }
+    // Start part-way along, so the row is already full edge to edge on load (no empty gap on the left).
+    const first = strip.querySelector('img')
+    const startAt = () => { strip.scrollLeft = strip.scrollWidth / 4 + (first ? first.clientWidth / 3 : 0) }
+    startAt(); window.addEventListener('load', startAt, { once: true })
     let last = performance.now(), carry = 0, boost = 0
     const tick = (now: number) => {
       const dt = now - last; last = now

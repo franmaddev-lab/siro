@@ -42,7 +42,7 @@ const c = site.contact
   .find :global([data-load-frame]) { display: grid; place-items: center; width: 100%; min-height: 20rem; border-radius: var(--radius); border: 0; background: var(--brand) url('/images/map-tile.svg') center / cover; color: var(--brand-text); font-size: 0.85rem; padding: 1rem; align-content: center; gap: 0.25rem; }
   .find :global([data-load-frame])::before { content: '📍'; display: block; font-size: 2rem; margin-bottom: 0.5rem; }
   .find :global(iframe) { height: 20rem !important; }
-  #contact .right-col :global(h2) { font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; margin-top: 2rem; max-width: none; display: flex; align-items: center; gap: 0.75rem; }
+  #contact .right-col :global(h2) { font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2rem; max-width: none; display: flex; align-items: center; gap: 0.75rem; }
   /* Two separate bordered cards: contact details, then the message form. */
   .right-col { display: grid; gap: 1.25rem; align-content: start; }
   .contact-card, .right-col :global(.form-card) { padding: clamp(1.25rem, 3vw, 2rem); }
