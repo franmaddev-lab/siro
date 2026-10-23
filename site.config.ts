@@ -190,7 +190,7 @@ const site: SiteConfig = {
   howItWorks: { enabled: false, eyebrow: '', heading: '', steps: [] },
 
   about: {
-    heading: 'Who we are',
+    heading: 'Meet Danilo & Luca',
     paragraphs: [
       "At SiRo' Mangia & Bevi we are an Italian duo: Danilo, the heart behind the service, and Luca, the creative mind in the kitchen. Together we have created a special space that blends delicious food with warm, personal service.",
       'As chef, manager and owners, we believe in bringing out the best in each other and our team, so that every meal and every moment at our bistrot feels special.',

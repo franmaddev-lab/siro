@@ -1,0 +1,34 @@
+---
+import site from '../../site.config'
+import ContactForm from './addons/ContactForm.astro'
+import Map from './addons/Map.astro'
+const c = site.contact
+---
+<section class="section" id="contact">
+  <div class="container">
+    <p class="eyebrow">Get in touch</p>
+    <h2>Come and see us</h2>
+    <div class="grid cols-2">
+      <div>
+        <ul class="details">
+          {c.phone && <li><strong>Phone</strong><a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a></li>}
+          {c.whatsapp && <li><strong>WhatsApp</strong><a href={`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(c.whatsappMessage)}`} rel="noopener">Message us</a></li>}
+          {c.email && <li><strong>Email</strong><a href={`mailto:${c.email}`}>{c.email}</a></li>}
+          {c.address && <li><strong>Address</strong><span>{c.address}</span></li>}
+        </ul>
+        {c.hours.length > 0 && (
+          <>
+            <h3>Opening hours</h3>
+            <ul class="details">{c.hours.map((h) => <li><strong>{h.days}</strong><span>{h.time}</span></li>)}</ul>
+          </>
+        )}
+        <Map />
+      </div>
+      <ContactForm />
+    </div>
+  </div>
+</section>
+<style>
+  .details { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+  .details li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+</style>

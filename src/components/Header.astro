@@ -1,10 +1,10 @@
 ---
 import site from '../../site.config'
 const links = [
-  { href: '/', label: 'Home' },
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
-  { href: '/about/', label: 'Who we are' },
-  { href: '/contact/', label: 'Get in touch' },
+  ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
+  { href: '/#about', label: 'Who we are' },
+  { href: '/#contact', label: 'Get in touch' },
 ]
 const path = Astro.url.pathname
 ---

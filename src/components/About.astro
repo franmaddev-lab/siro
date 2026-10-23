@@ -1,0 +1,20 @@
+---
+import site from '../../site.config'
+const a = site.about
+---
+<section class="section alt" id="about">
+  <div class="container about">
+    <div>
+      <p class="eyebrow">Who we are</p>
+      <h2>{a.heading}</h2>
+      {a.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    {a.image && <img src={a.image} alt="Danilo and Luca at the bar" loading="lazy" />}
+  </div>
+</section>
+<style>
+  .about { display: grid; gap: 2rem; align-items: center; }
+  .about > div { max-width: 42rem; }
+  @media (min-width: 1000px) { .about:has(img) { grid-template-columns: 1.1fr 1fr; } }
+  img { border-radius: var(--radius); width: 100%; aspect-ratio: 1; object-fit: cover; }
+</style>

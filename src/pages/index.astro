@@ -9,6 +9,8 @@ import Quote from '../components/addons/Quote.astro'
 import WhyUs from '../components/WhyUs.astro'
 import HowItWorks from '../components/HowItWorks.astro'
 import Social from '../components/Social.astro'
+import About from '../components/About.astro'
+import Contact from '../components/Contact.astro'
 const ss = site.servicesSection
 const quoteOn = site.addons.quote.mode !== 'off'
 const h = site.hero
@@ -21,7 +23,7 @@ const h = site.hero
         <h1>{h.heading}</h1>
         <p class="lead">{h.text}</p>
         <p class="actions">
-          <a class="btn" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '/contact/'}>{h.cta}</a>
+          <a class="btn" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '#contact'}>{h.cta}</a>
           {site.addons.priceList.mode !== 'off' && <a class="btn outline" href="#prices">See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
           {site.contact.phone && <a class="btn outline" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>Call {site.contact.phone}</a>}
         </p>
@@ -49,20 +51,12 @@ const h = site.hero
   <Reviews />
   <Gallery />
   <WhyUs />
+  <About />
   <Social />
   <HowItWorks />
   <Booking />
   <Quote />
 
-  {site.about.showOnHome && (
-    <section class="section alt">
-      <div class="container">
-        <h2>{site.about.heading}</h2>
-        <p class="lead">{site.about.paragraphs[0]}</p>
-        <p><a class="btn outline" href="/about/">More about us</a></p>
-      </div>
-    </section>
-  )}
 
   {site.cta.heading && (
     <section class="section cta">
@@ -70,12 +64,14 @@ const h = site.hero
         <h2>{site.cta.heading}</h2>
         <p>{site.cta.text}</p>
         <p class="actions">
-          <a class="btn invert" href={quoteOn ? '#quote' : '/contact/'}>{h.cta}</a>
+          <a class="btn invert" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '#contact'}>{h.cta}</a>
           {site.contact.phone && <a class="btn ghost" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>Call now</a>}
         </p>
       </div>
     </section>
   )}
+
+  <Contact />
 </Base>
 <style>
   .hero { padding: clamp(3.5rem, 9vw, 6.5rem) 0; background: var(--surface); }
