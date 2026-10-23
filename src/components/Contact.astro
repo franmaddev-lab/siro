@@ -16,7 +16,7 @@ const c = site.contact
         )}
         <Map />
       </div>
-      <div>
+      <div class="contact-card card">
         <h3>Contact us</h3>
         <ul class="details">
           {c.phone && <li><strong>Phone</strong><a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a></li>}
@@ -41,4 +41,6 @@ const c = site.contact
   .find :global([data-load-frame])::before { content: '📍'; display: block; font-size: 2rem; margin-bottom: 0.5rem; }
   .find :global(iframe) { height: 20rem !important; }
   #contact .grid > div:last-child :global(h2) { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; margin-top: 2rem; max-width: none; display: flex; align-items: center; gap: 0.75rem; }
+  .contact-card { padding: clamp(1.25rem, 3vw, 2rem); }
+  .contact-card :global(form), .contact-card :global(.card) { border: 0; padding: 0; box-shadow: none; background: transparent; }
 </style>

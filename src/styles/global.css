@@ -126,3 +126,4 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
 .actions { display: inline-grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0.75rem !important; }
 .actions .btn { justify-content: center; white-space: nowrap; }
 @media (max-width: 899px) { .actions { display: grid !important; grid-auto-flow: row; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 899px) { .hero .hero-logo { max-width: 15rem !important; margin: 0 auto 1rem; } }
