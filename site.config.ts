@@ -101,134 +101,119 @@ export type SiteConfig = {
 }
 
 const site: SiteConfig = {
-  name: 'Example Business',
-  tagline: 'Friendly local service you can rely on',
-  description: 'Example Business: friendly, reliable local service. Get in touch for a free quote.',
+  name: "SiRo' Café Bistrot",
+  tagline: 'Mangia & Bevi: Italian food, made with love',
+  description: "SiRo' Mangia & Bevi: an Italian café bistrot run by Danilo and Luca. Brunch from 10am, small plates and Italian classics until 9pm.",
   lang: 'en-GB',
   url: '',
 
   theme: {
-    brand: '#1f5f8b',
+    brand: '#2f5d3a',
     brandText: '#ffffff',
-    ink: '#1c2126',
-    paper: '#ffffff',
-    surface: '#f3f5f7',
-    muted: '#5b6670',
-    radius: '10px',
-    fontHeading: 'Georgia, "Times New Roman", serif',
+    ink: '#1f2a22',
+    paper: '#fffaf8',
+    surface: '#f6e6e6',
+    muted: '#5c6660',
+    radius: '14px',
+    fontHeading: '"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif',
     fontBody: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
     fontFaces: [],
   },
 
   contact: {
-    phone: '01234 567890',
-    whatsapp: '447700900123',
-    whatsappMessage: 'Hi, I found you through your website.',
-    email: 'hello@example.com',
-    address: '1 High Street, Exampleton, EX1 2AB',
-    area: 'Exampleton and nearby',
+    phone: '',
+    whatsapp: '',
+    whatsappMessage: "Ciao! I found SiRo' through your website.",
+    email: '',
+    address: '',
+    area: '',
     hours: [
-      { days: 'Monday to Friday', time: '8am to 6pm' },
-      { days: 'Saturday', time: '9am to 1pm' },
+      { days: 'Breakfast and brunch', time: '10am to 2pm' },
+      { days: 'Afternoons and evenings', time: '12pm to 9pm' },
     ],
   },
 
-  social: { facebook: '', instagram: '' },
+  social: { facebook: 'https://www.facebook.com/share/18zqJedRY2/', instagram: '' },
 
   hero: {
-    eyebrow: 'Local and independent',
-    heading: 'Friendly local service you can rely on',
-    text: 'A short, plain sentence about what the business does and who it is for.',
-    image: '',
+    eyebrow: 'Café Bistrot · Mangia & Bevi',
+    heading: 'Come for the food, stay for the experience.',
+    text: 'Italian brunch, small plates and classics like lasagna and saffron risotto, served with warm, personal service.',
+    image: '/logo-wall.jpg',
     cta: 'Get in touch',
-    badges: ['Free quotes', 'Fully insured'],
+    badges: ['Brunch from 10am', 'Small plates until 9pm', 'Fresh, Italian, homemade'],
   },
 
-  servicesSection: { eyebrow: 'What we do', heading: 'Everything you need, sorted.', intro: '' },
+  servicesSection: { eyebrow: 'Mangia & Bevi', heading: 'From morning coffee to evening plates.', intro: '' },
 
   services: [
-    { name: 'First service', text: 'One line on what it is and why it helps.' },
-    { name: 'Second service', text: 'One line on what it is and why it helps.' },
-    { name: 'Third service', text: 'One line on what it is and why it helps.' },
+    { name: 'Breakfast and brunch', text: "SiRo' Benedict, Avotoast, salmon toast, French toast with Nutella and pistachio, and pastries at the bar." },
+    { name: 'Nibbles and small plates', text: 'Bruschetta, croquettes, burrata, soup and Italian plates to share, from 12pm to 9pm.' },
+    { name: 'Italian classics', text: "Risotto zafferano e gamberi, slow-cooked spezzatino and the SiRo' lasagna." },
   ],
 
   whyUs: {
     enabled: true,
-    eyebrow: 'Why us',
-    heading: 'A local business you will recommend.',
+    eyebrow: 'Why SiRo\'',
+    heading: 'A special space for food and community.',
     points: [
-      { title: 'One point of contact', text: 'The person who quotes is the person who does the job.' },
-      { title: 'Clear prices up front', text: 'You know where you stand before any work starts.' },
+      { title: 'An Italian duo', text: 'Danilo looks after the service, Luca is the creative mind in the kitchen.' },
+      { title: 'Fresh and unique flavours', text: 'A menu that reflects their love for fresh ingredients and Italian cooking.' },
+      { title: 'Warm, personal service', text: 'Whether for a casual bite or a relaxing evening, every moment should feel special.' },
     ],
     stats: [],
   },
 
-  howItWorks: {
-    enabled: true,
-    eyebrow: 'How it works',
-    heading: 'Simple from first message to finished job.',
-    steps: [
-      { title: 'Tell us the job', text: 'Call, message or use the form.' },
-      { title: 'Get a price', text: 'A clear quote with no obligation.' },
-      { title: 'Job done', text: 'On the agreed day, left clean and tidy.' },
-    ],
-  },
+  howItWorks: { enabled: false, eyebrow: '', heading: '', steps: [] },
 
   about: {
     heading: 'Who we are',
     paragraphs: [
-      'A couple of sentences about who runs the business and how long they have been doing it.',
-      'A couple of sentences about how they work and what customers can expect.',
+      "At SiRo' Mangia&Bevi, we are a dynamic Italian duo: Danilo, the heart behind the service, and Luca, the creative mind in the kitchen. Together, we've created a special space that blends delicious food with warm, personalised service.",
+      "With a shared passion for quality and community, we're excited to offer you a menu that reflects our love for fresh and unique flavours.",
+      "As chef, manager and owners, we believe in bringing out the best in each other and our team, so that every meal and every moment at our Bistrot feels special. Whether you're here for a casual bite or a relaxing evening, we can't wait to welcome you.",
     ],
-    image: '',
+    image: '/danilo-luca.jpg',
     showOnHome: true,
   },
 
-  cta: { heading: 'Ready to get started?', text: 'Get a free, no-obligation quote today.' },
+  cta: { heading: "We can't wait to welcome you.", text: 'Book a table or ask us anything.' },
 
   addons: {
     contactForm: { mode: 'demo' },
-    booking: { mode: 'demo', url: '', services: ['First service', 'Second service'] },
+    booking: { mode: 'demo', url: '', services: ['Table for brunch', 'Table for lunch or dinner', 'Private celebration'] },
     priceList: {
-      mode: 'demo',
+      mode: 'live',
       items: [
-        { name: 'First service', note: 'What is included', price: 'from £40' },
-        { name: 'Second service', note: 'What is included', price: 'from £75' },
-        { name: 'Third service', note: 'What is included', price: 'from £120' },
+        { name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '£12.75' },
+        { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil bernaise on sourdough', price: '£8.75' },
+        { name: "SiRo' Avotoast", note: 'Fresh avocado, creamy stracciatella, roasted cherry tomatoes and basil oil', price: '£9.75' },
+        { name: "SiRo' French Toast", note: 'Banana sauce, Nutella and crushed pistachio', price: '£7.25' },
+        { name: 'Bruschetta Mix', note: 'Tomato salad, Parma ham and burrata, hummus, roast pepper and chive', price: '£6.75' },
+        { name: 'Risotto zafferano e gamberi', note: 'Saffron risotto with prawns, a twist on the Milanese classic', price: '£13.25' },
+        { name: 'Slow cooked Spezzatino', note: 'Tender beef stew slow-cooked in red wine, with potatoes', price: '£12.75' },
+        { name: 'Fillet with Beets', note: '180g pan-fried beef fillet, beetroot sauce, chive oil and roast potatoes', price: '£15.75' },
+        { name: "SiRo' Lasagna", note: 'Classic Italian beef lasagna', price: '£9.75' },
       ],
     },
-    gallery: { mode: 'off', images: [] },
+    gallery: {
+      mode: 'live',
+      images: [
+        { src: '/logo-wall.jpg', alt: "The SiRo' Mangia & Bevi logo on the green bistro wall" },
+        { src: '/table.jpg', alt: 'A table set for a celebration under the SiRo\' sign' },
+        { src: '/danilo-luca.jpg', alt: 'Danilo and Luca at the bar' },
+      ],
+    },
     reviews: {
       mode: 'demo',
       items: [
-        { name: 'Sample customer', text: 'Turned up on time and did a great job.', stars: 5 },
-        { name: 'Sample customer', text: 'Clear price up front and no mess left behind.', stars: 5 },
-        { name: 'Sample customer', text: 'Would happily recommend to friends and family.', stars: 5 },
+        { name: 'Sample guest', text: 'Lovely brunch and such friendly service. The Benedict is a must.', stars: 5 },
+        { name: 'Sample guest', text: 'Felt like being back in Italy. The risotto was beautiful.', stars: 5 },
+        { name: 'Sample guest', text: 'Perfect spot for a celebration, they made it really special.', stars: 5 },
       ],
     },
-    quote: {
-      mode: 'demo',
-      eyebrow: 'Free quote',
-      heading: 'Get your quote in under a minute.',
-      intro: 'Answer a few quick questions and send them straight to us by WhatsApp or email.',
-      bullets: ['Takes about 60 seconds', 'No obligation'],
-      steps: [
-        {
-          title: 'What do you need?',
-          hint: 'Pick the closest match.',
-          fields: [{ type: 'choice', label: 'Job', options: [{ label: 'First service' }, { label: 'Second service' }, { label: 'Something else', note: 'Tell us about it' }] }],
-        },
-        {
-          title: 'When do you need us?',
-          hint: 'And anything else worth knowing.',
-          fields: [
-            { type: 'choice', label: 'Timing', options: [{ label: 'This week' }, { label: 'This month' }, { label: 'No rush' }] },
-            { type: 'textarea', label: 'Details (optional)' },
-          ],
-        },
-      ],
-    },
-    map: { mode: 'off', embedUrl: '' },
+    quote: { mode: 'off', eyebrow: '', heading: '', intro: '', bullets: [], steps: [] },
+    map: { mode: 'demo', embedUrl: '' },
   },
 
   goatcounter: '',
