@@ -1,5 +1,6 @@
 ---
 import site from '../../site.config'
+import LogoFull from './LogoFull.astro'
 const links = [
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
   ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
@@ -11,9 +12,7 @@ const path = Astro.url.pathname
 <header class="site-header">
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
-      {site.logo.main
-        ? <>{site.logo.top && <span class="logo-line">{site.logo.top}</span>}<span class="logo-main">{site.logo.main}</span>{site.logo.bottom && <span class="logo-line">{site.logo.bottom}</span>}</>
-        : site.name}
+      {site.logo.svg ? <LogoFull /> : site.name}
     </a>
     <nav aria-label="Main">
       {links.map((l) => (
@@ -35,7 +34,7 @@ const path = Astro.url.pathname
   nav .btn.small { padding: 0.45rem 1rem; color: var(--brand-text); }
 </style>
 <style>
-  .brand { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
-  .logo-main { font-family: var(--font-heading); font-size: 2rem; font-weight: 600; color: var(--brand); letter-spacing: 0.02em; }
-  .logo-line { font-family: var(--font-body); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ink); margin: 0.15rem 0; }
+  .brand { display: block; color: var(--brand); line-height: 0; }
+  .brand :global(svg) { height: 4.5rem; width: auto; }
+  @media (max-width: 640px) { .brand :global(svg) { height: 3.5rem; } }
 </style>

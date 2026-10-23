@@ -60,7 +60,7 @@ input, select, textarea {
 
 /* SiRo' look: the green wall and pink lettering of the sign, the spaced capitals of the menu. */
 body { font-size: 1.06rem; }
-h1, h2 { font-weight: 600; letter-spacing: -0.01em; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
+h1, h2 { font-weight: 400; letter-spacing: -0.005em; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
 h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
 .eyebrow { font-weight: 600; letter-spacing: 0.4em; color: #b0606f; }
 .btn { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.85rem; }
@@ -70,9 +70,17 @@ h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter
 .hero .badges li::before { color: #f2bfcb !important; }
 .hero .btn:not(.outline) { background: #f2bfcb; color: var(--brand); border-color: #f2bfcb; }
 .hero .btn.outline { color: var(--brand-text); border-color: var(--brand-text); }
-#prices .price { font-family: var(--font-heading); font-weight: 600; color: var(--brand); }
-#prices strong { font-weight: 600; }
+#prices .price { font-family: var(--font-heading); font-weight: 400; color: var(--brand); }
+#prices strong { font-weight: 600; color: var(--ink); }
 .hero .lead { color: color-mix(in srgb, var(--brand-text) 85%, transparent); }
 /* Header stays on screen while scrolling; anchors land below it. */
 .site-header { position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 12px rgb(0 0 0 / 0.06); }
 section[id] { scroll-margin-top: 6.5rem; }
+
+/* WhatsApp: round icon-only button (overrides the shared site-kit.js style, which shows a label). */
+.sk-wa span { display: none; }
+.sk-wa { padding: 0 !important; width: 3.5rem; height: 3.5rem; justify-content: center; border-radius: 50% !important; }
+.sk-wa svg { display: none; }
+.sk-wa::before { content: ''; width: 1.8rem; height: 1.8rem; background: currentColor; -webkit-mask: url(/images/whatsapp.svg) center / contain no-repeat; mask: url(/images/whatsapp.svg) center / contain no-repeat; }
+.hero h1 { font-weight: 400 !important; }
+blockquote { font-weight: 300; }

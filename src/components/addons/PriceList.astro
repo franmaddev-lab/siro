@@ -13,9 +13,15 @@ for (const i of a.items) {
     <div class="container">
       <h2>{a.heading || 'Prices'} <DemoTag mode={a.mode} /></h2>
       {a.intro && <p class="lead">{a.intro}</p>}
+      {groups.filter((g) => g.name).length > 1 && (
+        <div class="pills" role="group" aria-label="Filter the menu">
+          <button type="button" aria-pressed="true" data-filter="">All</button>
+          {groups.map((g, i) => g.name && <button type="button" aria-pressed="false" data-filter={String(i)}>{g.name.split(',')[0]}</button>)}
+        </div>
+      )}
       <div class="groups">
-        {groups.map((g) => (
-          <div>
+        {groups.map((g, i) => (
+          <div class="group" data-group={String(i)}>
             {g.name && <h3>{g.name}</h3>}
             <ul class="prices">
               {g.items.map((i) => (
@@ -29,10 +35,25 @@ for (const i of a.items) {
   </section>
 )}
 <style>
-  .groups { display: grid; gap: 1rem 3rem; margin-top: 1.5rem; }
-  @media (min-width: 900px) { .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  h3 { margin: 1.5rem 0 0.25rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .pills button { font: inherit; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
+  .pills button[aria-pressed='true'] { background: var(--brand); color: var(--brand-text); }
+  /* Balanced columns: whole groups flow into two columns of similar length. */
+  .groups { margin-top: 0.5rem; }
+  @media (min-width: 900px) { .groups { columns: 2; column-gap: 3rem; } }
+  .group { break-inside: avoid; }
+  .group[hidden] { display: none; }
+  h3 { margin: 0 0 0.25rem; padding-top: 1.5rem; }
   .prices { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
   .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
   .price { font-weight: 700; white-space: nowrap; }
 </style>
+<script>
+  document.querySelectorAll<HTMLElement>('#prices').forEach((sec) => {
+    const pills = sec.querySelectorAll<HTMLButtonElement>('[data-filter]')
+    pills.forEach((p) => p.addEventListener('click', () => {
+      pills.forEach((x) => x.setAttribute('aria-pressed', String(x === p)))
+      sec.querySelectorAll<HTMLElement>('.group').forEach((g) => { g.hidden = !!p.dataset.filter && g.dataset.group !== p.dataset.filter })
+    }))
+  })
+</script>

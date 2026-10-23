@@ -30,8 +30,8 @@ export type SiteConfig = {
     fontFaces: { family: string; src: string; weight: string }[]
   }
 
-  /** Header wordmark: big name with small wide-spaced lines above and below. Empty main uses `name`. */
-  logo: { main: string; top: string; bottom: string }
+  /** `svg`: use the traced logo (src/components/LogoFull.astro) in the header and hero. */
+  logo: { svg: boolean }
 
   contact: {
     phone: string
@@ -47,7 +47,7 @@ export type SiteConfig = {
   /** `handle` like '@siro.16'. `showSection` adds a "follow us" band to the home page. */
   social: { facebook: string; instagram: string; handle: string; showSection: boolean }
 
-  hero: { eyebrow: string; heading: string; text: string; image: string; cta: string; badges: string[] }
+  hero: { eyebrow: string; heading: string; text: string; image: string; /** Shows the logo instead of the image. */ showLogo: boolean; cta: string; badges: string[] }
   servicesSection: { eyebrow: string; heading: string; intro: string }
   services: { name: string; text: string }[]
   /** Reasons to choose the business, with optional headline numbers. */
@@ -135,7 +135,8 @@ const site: SiteConfig = {
     ],
   },
 
-  logo: { main: "SiRo'", top: 'Mangia & Bevi', bottom: 'Café Bistrot' },
+  // Traced from the photo of their wall sign.
+  logo: { svg: true },
 
   contact: {
     phone: '01706 582954',
@@ -163,6 +164,7 @@ const site: SiteConfig = {
     heading: 'Come for the food, stay for the experience.',
     text: 'Fresh Italian cooking and warm, personal service on Baillie Street. Brunch from 10am, small plates, risotto and pasta into the evening.',
     image: '/images/logo-wall.jpg',
+    showLogo: true,
     cta: 'Book a table',
     badges: ['Brunch 10am to 2pm', 'Small plates until 9pm', 'Private celebrations'],
   },
@@ -253,6 +255,11 @@ const site: SiteConfig = {
         { name: 'Sample guest', text: 'Lovely food and such a warm welcome. The risotto was amazing.', stars: 5, source: 'Google' },
         { name: 'Sample guest', text: 'Best brunch in Rochdale. The Benedict is a must.', stars: 5, source: 'Tripadvisor' },
         { name: 'Sample guest', text: 'Had our celebration here and they made it really special.', stars: 5, source: 'Google' },
+        { name: 'Sample guest', text: 'Proper Italian food, just like being in Italy. Danilo and Luca are fantastic hosts.', stars: 5, source: 'Tripadvisor' },
+        { name: 'Sample guest', text: 'The croquettes and the spezzatino were outstanding. Great value too.', stars: 5, source: 'Google' },
+        { name: 'Sample guest', text: 'Lovely little bistrot with a real buzz. Coffee and pastries are spot on.', stars: 5, source: 'Tripadvisor' },
+        { name: 'Sample guest', text: 'Friendly staff, beautiful plates, and they took great care with my allergies.', stars: 5, source: 'Google' },
+        { name: 'Sample guest', text: 'Our new favourite spot in Rochdale. Already booked to come back.', stars: 5, source: 'Tripadvisor' },
       ],
     },
     quote: { mode: 'off', eyebrow: '', heading: '', intro: '', bullets: [], steps: [] },
