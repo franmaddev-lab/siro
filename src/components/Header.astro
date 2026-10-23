@@ -1,6 +1,8 @@
 ---
 import site from '../../site.config'
 import LogoSplit from './LogoSplit.astro'
+// Home page with the big hero logo: start with the header logo hidden (phones), so it never flashes.
+const startHidden = Astro.url.pathname === '/' && site.hero.showLogo && site.logo.svg
 const links = [
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
   ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
@@ -8,7 +10,7 @@ const links = [
   { href: '/#contact', label: 'Get in touch' },
 ]
 ---
-<header class="site-header" data-header>
+<header class:list={['site-header', { 'logo-in-hero': startHidden }]} data-header>
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
       {site.logo.svg

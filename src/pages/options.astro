@@ -1,0 +1,214 @@
+---
+// Design options to compare (not linked from the site). Delete once a choice is made.
+import site from '../../site.config'
+import Base from '../layouts/Base.astro'
+import LogoMark from '../components/LogoMark.astro'
+import LogoSplit from '../components/LogoSplit.astro'
+const items = site.addons.priceList.items
+const groups: { name: string; items: typeof items }[] = []
+for (const i of items) {
+  if (!groups.length || (i.group && i.group !== groups[groups.length - 1].name)) groups.push({ name: (i.group ?? '').split(',')[0], items: [] })
+  groups[groups.length - 1].items.push(i)
+}
+const sample = groups.map((g) => ({ name: g.name, items: g.items.slice(0, 4) }))
+---
+<Base title="Design options">
+  <section class="section intro">
+    <div class="container">
+      <p class="eyebrow">Design options</p>
+      <h1>Buttons and menu: pick your favourites</h1>
+      <p class="lead">Hover (or tap) the buttons to see how they move. Each option has a letter or number to reply with.</p>
+    </div>
+  </section>
+
+  <section class="section green">
+    <div class="container">
+      <h2>Header logo</h2>
+      <div class="opt"><p class="tag">H1 · SIRO' only (my pick)</p><div class="hdr"><span class="hl"><LogoMark /></span><span class="fake-nav">Menu · Reviews · Who we are · Get in touch</span></div></div>
+      <div class="opt"><p class="tag">H2 · SIRO' with the fork and glass</p><div class="hdr"><span class="hl"><LogoMark icon /></span><span class="fake-nav">Menu · Reviews · Who we are · Get in touch</span></div></div>
+      <div class="opt"><p class="tag">H3 · Current: everything from the sign</p><div class="hdr"><span class="hl"><LogoSplit /></span><span class="fake-nav">Menu · Reviews · Who we are · Get in touch</span></div></div>
+    </div>
+  </section>
+
+  <section class="section green">
+    <div class="container">
+      <h2>Buttons</h2>
+
+      <div class="opt">
+        <p class="tag">A · Hand-drawn underline</p>
+        <div class="row">
+          <a class="ul-link" href="#m1">See the menu <span class="arrow">→</span>
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 60 4, 120 18, 180 9 S 270 6, 297 11" /></svg>
+          </a>
+          <a class="ul-link" href="#m1">Get in touch <span class="arrow">→</span>
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 70 16, 130 3, 190 11 S 260 15, 297 8" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="opt">
+        <p class="tag">B · Tickets</p>
+        <div class="row">
+          <a class="ticket" href="#m1"><small>N° 16</small><strong>See the menu</strong><small>Mangia</small></a>
+          <a class="ticket alt" href="#m1"><small>Ciao!</small><strong>Get in touch</strong><small>Bevi</small></a>
+        </div>
+      </div>
+
+      <div class="opt">
+        <p class="tag">C · Round stamps</p>
+        <div class="row">
+          <a class="stamp" href="#m1" aria-label="See the menu">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="circ" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs>
+              <text><textPath href="#circ">SEE THE MENU · SEE THE MENU · </textPath></text>
+            </svg>
+            <span class="mid">🍝</span>
+          </a>
+          <a class="stamp" href="#m1" aria-label="Get in touch">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <text><textPath href="#circ">GET IN TOUCH · GET IN TOUCH · </textPath></text>
+            </svg>
+            <span class="mid">🍷</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="m1">
+    <div class="container">
+      <h2>Menu</h2>
+      <p class="tag dark">1 · Printed card</p>
+      <div class="card-menu">
+        {sample.map((g) => (
+          <div class="cm-group">
+            <h3><span>✦</span>{g.name}<span>✦</span></h3>
+            {g.items.map((i) => (
+              <div class="cm-item">
+                <p class="line"><span class="name">{i.name}</span><span class="dots"></span><span class="price">{i.price}</span></p>
+                {i.note && <p class="note">{i.note}</p>}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <p class="tag dark">2 · Chalkboard</p>
+      <div class="chalk">
+        {sample.map((g) => (
+          <div class="ch-group">
+            <h3>{g.name}</h3>
+            <svg class="squiggle" viewBox="0 0 200 10" aria-hidden="true"><path d="M2 6 Q 25 1, 50 6 T 100 6 T 150 6 T 198 6" /></svg>
+            {g.items.map((i) => (
+              <div class="ch-item"><p><span>{i.name}</span><span>{i.price}</span></p>{i.note && <small>{i.note}</small>}</div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="tag dark">3 · Menu book (tap the arrows to turn the page)</p>
+      <div class="book" data-book>
+        {sample.map((g, n) => (
+          <div class="page" data-page={n} style={`z-index:${sample.length - n}`}>
+            <p class="pnum">{n + 1} / {sample.length}</p>
+            <h3>{g.name}</h3>
+            {g.items.map((i) => <p class="bk-item"><span>{i.name}</span><span>{i.price}</span></p>)}
+          </div>
+        ))}
+      </div>
+      <p class="book-nav"><button type="button" data-turn="-1">← Back</button><button type="button" data-turn="1">Next page →</button></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-bottom: 1rem; }
+  .tag { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #f2bfcb; margin: 0 0 1rem; }
+  .tag.dark { color: #b0606f; }
+  .green { background: var(--brand); color: var(--brand-text); }
+  .green h2 { color: #f2bfcb; }
+  .opt { padding: 2rem 0; border-top: 1px solid color-mix(in srgb, var(--brand-text) 15%, transparent); }
+  .row { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; align-items: center; }
+
+  .hdr { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 1rem; border: 1px solid color-mix(in srgb, var(--brand-text) 20%, transparent); border-radius: 8px; }
+  .hl { color: #f2bfcb; line-height: 0; }
+  .hl :global(svg) { height: 2.6rem; width: auto; }
+  .fake-nav { font-weight: 600; font-size: 0.9rem; opacity: 0.85; }
+  @media (max-width: 640px) { .fake-nav { display: none; } }
+  /* A: hand-drawn underline */
+  .ul-link { position: relative; font-family: var(--font-heading); font-size: 1.6rem; color: #f2bfcb; text-decoration: none; padding-bottom: 0.4rem; }
+  .ul-link svg { position: absolute; left: 0; bottom: -0.2rem; width: 100%; height: 0.8rem; overflow: visible; }
+  .ul-link path { fill: none; stroke: #f2bfcb; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 320; stroke-dashoffset: 120; transition: stroke-dashoffset 0.5s ease; }
+  .ul-link:hover path, .ul-link:focus-visible path { stroke-dashoffset: 0; }
+  .ul-link .arrow { display: inline-block; transition: transform 0.25s; }
+  .ul-link:hover .arrow { transform: translateX(0.4rem); }
+
+  /* B: tickets */
+  .ticket { --notch: 0.9rem; display: grid; justify-items: center; gap: 0.15rem; min-width: 12rem; padding: 0.9rem 1.6rem; background: var(--paper); color: var(--brand); text-decoration: none; transform: rotate(-2deg); transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 14px rgb(0 0 0 / 0.25);
+    -webkit-mask: radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .ticket.alt { background: #f2bfcb; transform: rotate(1.5deg); }
+  .ticket strong { font-family: var(--font-heading); font-weight: 500; font-size: 1.35rem; border-top: 1.5px dashed currentColor; border-bottom: 1.5px dashed currentColor; padding: 0.25rem 0.5rem; }
+  .ticket small { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 600; }
+  .ticket:hover { transform: rotate(0) translateY(-4px); }
+
+  /* C: round stamps */
+  .stamp { position: relative; display: grid; place-items: center; width: 9rem; height: 9rem; border-radius: 50%; background: #f2bfcb; color: var(--brand); text-decoration: none; }
+  .stamp svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform 1.2s ease; }
+  .stamp text { font-family: var(--font-body); font-size: 17px; font-weight: 600; letter-spacing: 4px; fill: var(--brand); }
+  .stamp .mid { font-size: 2rem; }
+  .stamp:hover svg { transform: rotate(180deg); }
+
+  /* 1: printed card */
+  .card-menu { max-width: 46rem; margin: 0 auto; background: #fffdf8; padding: clamp(1.5rem, 5vw, 3rem); border: 1px solid #d9c9b4; outline: 1px solid #d9c9b4; outline-offset: -10px; box-shadow: 0 10px 30px rgb(0 0 0 / 0.08); }
+  .cm-group + .cm-group { margin-top: 2rem; }
+  .cm-group h3 { display: flex; justify-content: center; align-items: center; gap: 1rem; text-align: center; color: var(--brand); padding: 0; margin-bottom: 1rem; }
+  .cm-group h3 span { color: #c9877f; letter-spacing: 0; }
+  .cm-item { margin-bottom: 0.9rem; }
+  .line { display: flex; align-items: baseline; gap: 0.5rem; margin: 0; }
+  .line .name { font-family: var(--font-heading); font-size: 1.1rem; }
+  .line .dots { flex: 1; border-bottom: 2px dotted #c9b9a4; transform: translateY(-0.3rem); }
+  .line .price { font-family: var(--font-heading); color: var(--brand); }
+  .note { margin: 0.1rem 0 0; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+  /* 2: chalkboard */
+  .chalk { display: grid; gap: 2rem 3rem; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 6px; color: #f4f1ea; border: 12px solid #6b4a2e;
+    background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.06), transparent 60%), radial-gradient(ellipse at 80% 90%, rgb(255 255 255 / 0.04), transparent 50%), #2a2f2b; box-shadow: inset 0 0 40px rgb(0 0 0 / 0.5); }
+  @media (min-width: 900px) { .chalk { grid-template-columns: repeat(2, 1fr); } }
+  .ch-group h3 { color: #f6d1da; text-shadow: 0 0 2px rgb(255 255 255 / 0.4); margin: 0; }
+  .squiggle { width: 8rem; height: 0.7rem; margin: 0.25rem 0 0.75rem; }
+  .squiggle path { fill: none; stroke: #f4f1ea; stroke-width: 2; opacity: 0.6; }
+  .ch-item { margin-bottom: 0.8rem; }
+  .ch-item p { display: flex; justify-content: space-between; gap: 1rem; margin: 0; font-family: var(--font-heading); font-size: 1.1rem; text-shadow: 0 0 1px rgb(255 255 255 / 0.5); }
+  .ch-item small { opacity: 0.7; }
+
+  /* 3: menu book */
+  .book { position: relative; max-width: 26rem; height: 25rem; margin: 0 auto; perspective: 1600px; }
+  .page { position: absolute; inset: 0; padding: 2rem; background: #fffdf8; border: 1px solid #d9c9b4; border-radius: 4px 12px 12px 4px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.12), inset 6px 0 10px -6px rgb(0 0 0 / 0.2); transform-origin: left center; transition: transform 0.8s cubic-bezier(.4,.1,.2,1), opacity 0.8s; backface-visibility: hidden; }
+  .page.turned { transform: rotateY(-170deg); opacity: 0; }
+  .page h3 { color: var(--brand); padding: 0; }
+  .pnum { font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); margin: 0 0 1rem; }
+  .bk-item { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-heading); font-size: 1.05rem; border-bottom: 1px solid #eee3d3; padding: 0.55rem 0; margin: 0; }
+  .book-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 1.25rem; }
+  .book-nav button { font: inherit; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
+</style>
+<script>
+  const book = document.querySelector('[data-book]')
+  if (book) {
+    const pages = [...book.querySelectorAll<HTMLElement>('.page')]
+    let at = 0
+    document.querySelectorAll<HTMLButtonElement>('[data-turn]').forEach((b) => b.addEventListener('click', () => {
+      const dir = Number(b.dataset.turn)
+      if (dir > 0 && at < pages.length - 1) pages[at++].classList.add('turned')
+      else if (dir < 0 && at > 0) pages[--at].classList.remove('turned')
+    }))
+  }
+</script>
