@@ -23,15 +23,9 @@ const h = site.hero
         {h.eyebrow && <p class="eyebrow">{h.eyebrow}</p>}
         <h1>{h.heading.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h1>
         <p class="lead">{h.text.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>
-        <p class="links">
-          {site.addons.priceList.mode !== 'off' && (
-            <a class="ul-link" href="#prices">See the {site.addons.priceList.heading.toLowerCase() || 'prices'} <span class="arrow" aria-hidden="true">→</span>
-              <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 60 4, 120 18, 180 9 S 270 6, 297 11" /></svg>
-            </a>
-          )}
-          <a class="ul-link" href="#contact">Get in touch <span class="arrow" aria-hidden="true">→</span>
-            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 70 16, 130 3, 190 11 S 260 15, 297 8" /></svg>
-          </a>
+        <p class="actions">
+          {site.addons.priceList.mode !== 'off' && <a class="btn" href="#prices"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 6.5C10.5 5 8 4.5 3 4.5v14c5 0 7.5.5 9 2 1.5-1.5 4-2 9-2v-14c-5 0-7.5.5-9 2Zm0 0v14"/></svg>See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
+          <a class="btn" href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4Z"/></svg>Get in touch</a>
         </p>
         {h.badges.length > 0 && <ul class="badges">{h.badges.map((b) => <li>{b}</li>)}</ul>}
         <p class="where">

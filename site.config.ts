@@ -136,7 +136,7 @@ const site: SiteConfig = {
       { family: 'Josefin Sans', src: '/fonts/josefin-sans-400.woff2', weight: '400' },
       { family: 'Josefin Sans', src: '/fonts/josefin-sans-600.woff2', weight: '600' },
       // Rounded capitals close to MANGIA & BEVI / CAFÉ BISTROT on the sign.
-      { family: 'Fredoka', src: '/fonts/fredoka-600.woff2', weight: '600' },
+      { family: 'Fredoka', src: '/fonts/fredoka.woff2', weight: '300 700' },
     ],
   },
 

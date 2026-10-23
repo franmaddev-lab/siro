@@ -119,4 +119,10 @@ button, input, select, textarea { font-family: inherit; }
 .hero { min-height: calc(100svh - 5.5rem); display: grid; align-content: center; }
 @media (max-width: 899px) { .hero { min-height: calc(100svh - 4.75rem); } }
 /* Page and section titles in the rounded font of MANGIA & BEVI on the sign. */
-h1, h2 { font-family: Fredoka, var(--font-body); font-weight: 600 !important; letter-spacing: 0; font-variation-settings: normal; }
+h1, h2 { font-family: Fredoka, var(--font-body); font-weight: 500 !important; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.2; font-variation-settings: normal; }
+h1 { font-size: clamp(1.45rem, 3.2vw, 2.4rem) !important; }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
+/* Buttons side by side are always the same size: equal columns, sized by the longest label. */
+.actions { display: inline-grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0.75rem !important; }
+.actions .btn { justify-content: center; white-space: nowrap; }
+@media (max-width: 899px) { .actions { display: grid !important; grid-auto-flow: row; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
