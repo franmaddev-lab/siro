@@ -32,45 +32,37 @@ const sample = groups.map((g) => ({ name: g.name, items: g.items.slice(0, 4) }))
 
   <section class="section green">
     <div class="container">
-      <h2>Buttons</h2>
-
+      <h2>Buttons: new ideas (for every button on the site)</h2>
+      <svg width="0" height="0" style="position:absolute"><defs><path id="circ" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs></svg>
       <div class="opt">
-        <p class="tag">A · Hand-drawn underline</p>
-        <div class="row">
-          <a class="ul-link" href="#m1">See the menu <span class="arrow">→</span>
-            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 60 4, 120 18, 180 9 S 270 6, 297 11" /></svg>
-          </a>
-          <a class="ul-link" href="#m1">Get in touch <span class="arrow">→</span>
-            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 70 16, 130 3, 190 11 S 260 15, 297 8" /></svg>
-          </a>
-        </div>
+        <p class="tag">B1 · Pill with an arrow circle</p>
+        <p class="desc">Text plus a round pink arrow; on hover the colour slides across.</p>
+        <div class="bg green-bg"><div class="pair"><a class="b1" href="#m1"><span>See the menu</span><span class="circ" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="b1 second" href="#m1"><span>Get in touch</span><span class="circ" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div></div>
+        <div class="bg cream-bg"><div class="pair"><a class="b1" href="#m1"><span>See the menu</span><span class="circ" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="b1 second" href="#m1"><span>Get in touch</span><span class="circ" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div></div>
       </div>
-
       <div class="opt">
-        <p class="tag">B · Tickets</p>
-        <div class="row">
-          <a class="ticket" href="#m1"><small>N° 16</small><strong>See the menu</strong><small>Mangia</small></a>
-          <a class="ticket alt" href="#m1"><small>Ciao!</small><strong>Get in touch</strong><small>Bevi</small></a>
-        </div>
+        <p class="tag">B2 · Menu-card frame</p>
+        <p class="desc">Thin double border like the menu card, spaced capitals; fills pink on hover.</p>
+        <div class="bg green-bg"><div class="pair"><a class="b2" href="#m1">See the menu</a><a class="b2 second" href="#m1">Get in touch</a></div></div>
+        <div class="bg cream-bg"><div class="pair"><a class="b2" href="#m1">See the menu</a><a class="b2 second" href="#m1">Get in touch</a></div></div>
       </div>
-
       <div class="opt">
-        <p class="tag">C · Round stamps</p>
-        <div class="row">
-          <a class="stamp" href="#m1" aria-label="See the menu">
-            <svg viewBox="0 0 200 200" aria-hidden="true">
-              <defs><path id="circ" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs>
-              <text><textPath href="#circ">SEE THE MENU · SEE THE MENU · </textPath></text>
-            </svg>
-            <span class="mid">🍝</span>
-          </a>
-          <a class="stamp" href="#m1" aria-label="Get in touch">
-            <svg viewBox="0 0 200 200" aria-hidden="true">
-              <text><textPath href="#circ">GET IN TOUCH · GET IN TOUCH · </textPath></text>
-            </svg>
-            <span class="mid">🍷</span>
-          </a>
-        </div>
+        <p class="tag">B3 · Price tag</p>
+        <p class="desc">A little tag with a punched hole and string; swings on hover.</p>
+        <div class="bg green-bg"><div class="pair"><a class="b3" href="#m1"><i class="hole"></i>See the menu</a><a class="b3 second" href="#m1"><i class="hole"></i>Get in touch</a></div></div>
+        <div class="bg cream-bg"><div class="pair"><a class="b3" href="#m1"><i class="hole"></i>See the menu</a><a class="b3 second" href="#m1"><i class="hole"></i>Get in touch</a></div></div>
+      </div>
+      <div class="opt">
+        <p class="tag">B4 · Ticket</p>
+        <p class="desc">Notched ticket, slightly tilted; straightens and lifts on hover.</p>
+        <div class="bg green-bg"><div class="pair"><a class="b4" href="#m1"><small>N° 16</small><strong>See the menu</strong></a><a class="b4 second" href="#m1"><small>Ciao!</small><strong>Get in touch</strong></a></div></div>
+        <div class="bg cream-bg"><div class="pair"><a class="b4" href="#m1"><small>N° 16</small><strong>See the menu</strong></a><a class="b4 second" href="#m1"><small>Ciao!</small><strong>Get in touch</strong></a></div></div>
+      </div>
+      <div class="opt">
+        <p class="tag">B5 · Round stamp</p>
+        <p class="desc">A circular stamp with text around the edge (from before); spins on hover.</p>
+        <div class="bg green-bg"><div class="pair"><a class="b5" href="#m1"><svg viewBox="0 0 200 200" aria-hidden="true"><text><textPath href="#circ">SEE THE MENU · SEE THE MENU · </textPath></text></svg><b>Menu</b></a><a class="b5" href="#m1"><svg viewBox="0 0 200 200" aria-hidden="true"><text><textPath href="#circ">GET IN TOUCH · GET IN TOUCH · </textPath></text></svg><b>Ciao!</b></a></div></div>
+        <div class="bg cream-bg"><div class="pair"><a class="b5" href="#m1"><svg viewBox="0 0 200 200" aria-hidden="true"><text><textPath href="#circ">SEE THE MENU · SEE THE MENU · </textPath></text></svg><b>Menu</b></a><a class="b5" href="#m1"><svg viewBox="0 0 200 200" aria-hidden="true"><text><textPath href="#circ">GET IN TOUCH · GET IN TOUCH · </textPath></text></svg><b>Ciao!</b></a></div></div>
       </div>
     </div>
   </section>
@@ -143,6 +135,49 @@ const sample = groups.map((g) => ({ name: g.name, items: g.items.slice(0, 4) }))
   .hl :global(svg) { height: 2.6rem; width: auto; }
   .fake-nav { font-weight: 600; font-size: 0.9rem; opacity: 0.85; }
   @media (max-width: 640px) { .fake-nav { display: none; } }
+  .desc { margin: -0.5rem 0 1rem; opacity: 0.85; }
+  .bg { padding: 1.5rem; border-radius: 10px; margin-bottom: 0.75rem; }
+  .green-bg { background: color-mix(in srgb, black 12%, var(--brand)); --fg: #f2bfcb; --on: var(--brand); }
+  .cream-bg { background: var(--paper); --fg: var(--brand); --on: var(--paper); }
+  .pair { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; }
+  .pair a { text-decoration: none; }
+
+  /* B1: pill with arrow circle */
+  .b1 { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 0.9rem; padding: 0.4rem 0.4rem 0.4rem 1.4rem; border-radius: 999px; border: 1.5px solid var(--fg); color: var(--fg); font-family: var(--font-heading); font-size: 1.15rem; isolation: isolate; transition: color 0.35s; }
+  .b1::before { content: ''; position: absolute; inset: 0; background: var(--fg); transform: translateX(-101%); transition: transform 0.35s ease; z-index: -1; }
+  .b1 .circ { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--fg); color: var(--on); transition: transform 0.35s, background 0.35s, color 0.35s; }
+  .b1 .circ svg { width: 1.1rem; height: 1.1rem; }
+  .b1:hover { color: var(--on); }
+  .b1:hover::before { transform: translateX(0); }
+  .b1:hover .circ { background: var(--on); color: var(--fg); transform: rotate(-45deg); }
+  .b1.second { border-style: dashed; }
+
+  /* B2: menu-card frame */
+  .b2 { padding: 0.85rem 1.6rem; color: var(--fg); border: 1px solid var(--fg); outline: 1px solid var(--fg); outline-offset: 3px; font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; transition: background 0.25s, color 0.25s; }
+  .b2:hover { background: var(--fg); color: var(--on); }
+  .b2.second { outline-color: transparent; }
+
+  /* B3: price tag */
+  .b3 { position: relative; display: inline-block; padding: 0.7rem 1.4rem 0.7rem 2.3rem; background: var(--fg); color: var(--on); font-family: var(--font-heading); font-size: 1.1rem; clip-path: polygon(1.1rem 0, 100% 0, 100% 100%, 1.1rem 100%, 0 50%); transform-origin: 0.6rem 50%; transform: rotate(-3deg); transition: transform 0.4s cubic-bezier(.3,1.6,.5,1); }
+  .b3 .hole { position: absolute; left: 0.85rem; top: 50%; width: 0.55rem; height: 0.55rem; margin-top: -0.275rem; border-radius: 50%; background: var(--on); }
+  .b3:hover { transform: rotate(4deg); }
+  .b3.second { background: color-mix(in srgb, var(--fg) 30%, var(--on)); color: var(--fg); transform: rotate(2deg); }
+
+  /* B4: ticket */
+  .b4 { --notch: 0.8rem; display: grid; justify-items: center; gap: 0.15rem; min-width: 11rem; padding: 0.8rem 1.5rem; background: var(--fg); color: var(--on); transform: rotate(-2deg); transition: transform 0.2s;
+    -webkit-mask: radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .b4 strong { font-family: var(--font-heading); font-weight: 500; font-size: 1.2rem; border-top: 1.5px dashed currentColor; border-bottom: 1.5px dashed currentColor; padding: 0.2rem 0.5rem; }
+  .b4 small { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 600; }
+  .b4.second { transform: rotate(1.5deg); }
+  .b4:hover { transform: rotate(0) translateY(-3px); }
+
+  /* B5: round stamp */
+  .b5 { position: relative; display: grid; place-items: center; width: 7.5rem; height: 7.5rem; border-radius: 50%; background: var(--fg); color: var(--on); }
+  .b5 svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform 1.2s ease; }
+  .b5 text { font-family: var(--font-body); font-size: 17px; font-weight: 600; letter-spacing: 4px; fill: var(--on); }
+  .b5 b { font-family: var(--font-heading); font-weight: 500; font-size: 1.25rem; }
+  .b5:hover svg { transform: rotate(180deg); }
   /* A: hand-drawn underline */
   .ul-link { position: relative; font-family: var(--font-heading); font-size: 1.6rem; color: #f2bfcb; text-decoration: none; padding-bottom: 0.4rem; }
   .ul-link svg { position: absolute; left: 0; bottom: -0.2rem; width: 100%; height: 0.8rem; overflow: visible; }
