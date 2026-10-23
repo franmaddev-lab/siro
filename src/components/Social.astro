@@ -1,5 +1,6 @@
 ---
 import site from '../../site.config'
+import SocialIcons from './SocialIcons.astro'
 const s = site.social
 const photos = site.addons.gallery.images.slice(0, 4)
 ---
@@ -13,10 +14,7 @@ const photos = site.addons.gallery.images.slice(0, 4)
           {photos.map((p) => <a href={s.instagram} rel="noopener"><img src={p.src} alt={p.alt} loading="lazy" /></a>)}
         </div>
       )}
-      <p class="actions">
-        {s.instagram && <a class="btn" href={s.instagram} rel="noopener">Instagram {s.handle}</a>}
-        {s.facebook && <a class="btn outline" href={s.facebook} rel="noopener">Facebook</a>}
-      </p>
+      <p class="actions icons"><SocialIcons /></p>
     </div>
   </section>
 )}
@@ -24,5 +22,6 @@ const photos = site.addons.gallery.images.slice(0, 4)
   .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; margin-top: 1.5rem; }
   .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); transition: transform 0.2s; }
   .strip a:hover img { transform: scale(1.02); }
+  .icons { color: var(--brand); }
   .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
 </style>

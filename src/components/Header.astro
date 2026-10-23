@@ -7,34 +7,53 @@ const links = [
   { href: '/#about', label: 'Who we are' },
   { href: '/#contact', label: 'Get in touch' },
 ]
-const path = Astro.url.pathname
+const book = site.addons.booking.mode !== 'off'
 ---
-<header class="site-header">
+<header class="site-header" data-header>
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
       {site.logo.svg ? <LogoFull /> : site.name}
     </a>
-    <nav aria-label="Main">
-      {links.map((l) => (
-        <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
-      ))}
-      {site.addons.booking.mode !== 'off' && <a class="btn small" href="/#book">{site.hero.cta}</a>}
+    <div class="right">
+      {book && <a class="btn small book-mobile" href="/#book">{site.hero.cta}</a>}
+      <button type="button" class="burger" aria-expanded="false" aria-controls="main-nav" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav id="main-nav" aria-label="Main">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      {book && <a class="btn small book-desktop" href="/#book">{site.hero.cta}</a>}
     </nav>
   </div>
 </header>
 <style>
   .site-header { border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); background: var(--paper); }
-  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem; padding: 0.9rem 0; }
-  .brand { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.5rem; padding: 0.75rem 0; }
+  .brand { display: block; color: var(--brand); line-height: 0; text-decoration: none; }
+  .brand :global(svg) { height: 4.5rem; width: auto; }
   nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
   nav a { color: var(--ink); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
-  nav a[aria-current='page'] { color: var(--brand); box-shadow: 0 2px 0 var(--brand); }
+  .btn.small { padding: 0.45rem 1rem; color: var(--brand-text); }
+  .right { display: none; align-items: center; gap: 0.75rem; }
+  .burger { width: 2.75rem; height: 2.75rem; border: 0; background: transparent; display: grid; align-content: center; gap: 5px; padding: 0.6rem; cursor: pointer; }
+  .burger span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+  .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (max-width: 899px) {
+    .brand :global(svg) { height: 3.25rem; }
+    .right { display: flex; }
+    .book-desktop { display: none; }
+    nav { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem 0 0.75rem; }
+    nav a { padding: 0.9rem 0; font-size: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+    .site-header.open nav { display: flex; }
+  }
+  @media (max-width: 360px) { .book-mobile { display: none; } }
 </style>
-<style>
-  nav .btn.small { padding: 0.45rem 1rem; color: var(--brand-text); }
-</style>
-<style>
-  .brand { display: block; color: var(--brand); line-height: 0; }
-  .brand :global(svg) { height: 4.5rem; width: auto; }
-  @media (max-width: 640px) { .brand :global(svg) { height: 3.5rem; } }
-</style>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')
+  const burger = header?.querySelector<HTMLButtonElement>('.burger')
+  const setOpen = (open: boolean) => { header?.classList.toggle('open', open); burger?.setAttribute('aria-expanded', String(open)) }
+  burger?.addEventListener('click', () => setOpen(!header?.classList.contains('open')))
+  header?.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+</script>

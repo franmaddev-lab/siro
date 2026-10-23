@@ -1,5 +1,6 @@
 ---
 import site from '../../site.config'
+import SocialIcons from './SocialIcons.astro'
 const c = site.contact
 const year = new Date().getFullYear()
 ---
@@ -13,8 +14,7 @@ const year = new Date().getFullYear()
     <div>
       {c.phone && <p><a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a></p>}
       {c.email && <p><a href={`mailto:${c.email}`}>{c.email}</a></p>}
-      {site.social.facebook && <p><a href={site.social.facebook} rel="noopener">Facebook</a></p>}
-      {site.social.instagram && <p><a href={site.social.instagram} rel="noopener">Instagram</a></p>}
+      <p class="icons"><SocialIcons /></p>
     </div>
     <div>
       <p><a href="/cookies/">Cookie policy</a></p>
@@ -27,6 +27,8 @@ const year = new Date().getFullYear()
   .site-footer { background: var(--ink); color: var(--paper); padding: 2.5rem 0 5rem; margin-top: 0; }
   .cols { display: grid; gap: 1.5rem; }
   @media (min-width: 640px) { .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .icons { display: flex; gap: 0.6rem; margin-top: 0.75rem; }
+  .icons :global(.social:hover svg) { color: var(--ink); }
   p { margin: 0 0 0.4rem; }
   .name { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; }
   a, .linkish { color: inherit; }

@@ -35,8 +35,9 @@ for (const i of a.items) {
   </section>
 )}
 <style>
-  .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
-  .pills button { font: inherit; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
+  .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+  @media (max-width: 640px) { .pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -1rem; padding-right: 1rem; } }
+  .pills button { font: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.3rem 0.8rem; white-space: nowrap; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
   .pills button[aria-pressed='true'] { background: var(--brand); color: var(--brand-text); }
   /* Balanced columns: whole groups flow into two columns of similar length. */
   .groups { margin-top: 0.5rem; }
