@@ -7,15 +7,20 @@ def load(n):
     s=H/im.height
     im=im.resize((max(1,round(im.width*s)),H),Image.LANCZOS)
     # Slightly thinner than the sign so the small counters (A, B, R, O...) stay open.
-    return im.point(lambda v:255 if v>140 else 0).filter(ImageFilter.GaussianBlur(5)).point(lambda v:255 if v>170 else 0)
+    return thin(im.point(lambda v:255 if v>140 else 0))
+def thin(im, blur=8, cut=215):
+    # Pad first so the outer edges thin too (letters are cropped tight), then crop back.
+    P=30; pad=Image.new('L',(im.width+2*P,im.height+2*P),0); pad.paste(im,(P,P))
+    t=pad.filter(ImageFilter.GaussianBlur(blur)).point(lambda v:255 if v>cut else 0)
+    bb=t.getbbox(); return t.crop((bb[0],P,bb[2],P+im.height))
 G={}
 for k,src in {'A':'A','B':'B','C':'C','E':'E2','F':'F','G':'G','I':'I','M':'M','N':'N','O':'O','R':'R','S':'S','T':'T','V':'V','&':'AMP'}.items():
     G[k]=load(src)
 # É keeps its accent above cap height
-ea=Image.open('raw/Eacute.png').convert('L'); s=H/ (ea.height*0.78); ea=ea.resize((round(ea.width*s),round(ea.height*s)),Image.LANCZOS).point(lambda v:255 if v>140 else 0).filter(ImageFilter.GaussianBlur(5)).point(lambda v:255 if v>170 else 0)
+ea=Image.open('raw/Eacute.png').convert('L'); s=H/ (ea.height*0.78); ea=thin(ea.resize((round(ea.width*s),round(ea.height*s)),Image.LANCZOS).point(lambda v:255 if v>140 else 0))
 G['É']=ea
 I=np.array(G['I'])>0
-sw=int(np.median(I.sum(axis=1)[H//4:3*H//4]))  # stem width
+sw=int(np.median(I.sum(axis=1)[H//4:3*H//4]))  # stem width (after thinning, so drawn letters match)
 print('stem width',sw)
 def canvas(w): return Image.new('L',(w,H),0)
 def bar(d,x0,y0,x1,y1):  # rounded bar
@@ -72,6 +77,6 @@ for k,im in G.items():
     # pad so tracing sees edges; keep baseline: bottom of cap = row H
     pad=Image.new('L',(im.width+20,max(im.height,H)+60),0); pad.paste(im,(10,30))
     # Trace at 2x with a soft blur so the outlines come out smooth.
-    pad=pad.resize((pad.width*2,pad.height*2),Image.LANCZOS).filter(ImageFilter.GaussianBlur(6))
+    pad=pad.resize((pad.width*2,pad.height*2),Image.LANCZOS).filter(ImageFilter.GaussianBlur(14))
     pad.point(lambda v:255 if v>127 else 0).save(f'glyphs/{name}.png')
 print(sorted(G))
