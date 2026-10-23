@@ -118,3 +118,5 @@ button, input, select, textarea { font-family: inherit; }
 /* Home hero fills the first screen (below the header). */
 .hero { min-height: calc(100svh - 5.5rem); display: grid; align-content: center; }
 @media (max-width: 899px) { .hero { min-height: calc(100svh - 4.75rem); } }
+/* Page and section titles in the rounded font of MANGIA & BEVI on the sign. */
+h1, h2 { font-family: Fredoka, var(--font-body); font-weight: 600 !important; letter-spacing: 0; font-variation-settings: normal; }

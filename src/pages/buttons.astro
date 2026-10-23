@@ -1,0 +1,146 @@
+---
+// Button systems to compare (not linked from the site). Delete once one is chosen.
+import Base from '../layouts/Base.astro'
+const systems = [
+  { id: 'S1', name: 'Soft pill', why: 'Friendly and familiar; the rounded logo font in capitals ties it to the sign. Safest choice for every screen.' },
+  { id: 'S2', name: 'Sign lettering', why: 'Squared corners and wide-spaced capitals, like the MANGIA & BEVI arc. Confident, a little more "restaurant".' },
+  { id: 'S3', name: 'Serif italic', why: 'Mixed-case italic serif in a pill. Warm and elegant; reads like a handwritten invitation.' },
+  { id: 'S4', name: 'Menu-card frame', why: 'A fine inset double line that matches the printed menu. Refined, best on cream.' },
+  { id: 'S5', name: 'Arrow tail', why: 'Editorial: a label with a long thin arrow that stretches on hover. Very light, lets the photos lead.' },
+  { id: 'S6', name: 'Accent bar', why: 'A pink bar on the left edge widens on hover. Clear direction, modern but calm.' },
+  { id: 'S7', name: 'Round arrow', why: 'Text next to a solid round arrow. The arrow is the target, so it is obvious what to tap.' },
+  { id: 'S8', name: 'Icon tiles', why: 'Square tiles with an icon above the word. Big, easy thumb targets for the two hero actions on phones.' },
+  { id: 'S9', name: 'Small caps underline', why: 'Quiet luxury: spaced capitals with a line that grows from the centre. Primary gets a hairline box.' },
+  { id: 'S10', name: 'Enamel sign', why: 'Glossy pill like an old Italian café enamel sign, with a thin inner rim. Most character, still readable.' },
+]
+const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+const book = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 6.5C10.5 5 8 4.5 3 4.5v14c5 0 7.5.5 9 2 1.5-1.5 4-2 9-2v-14c-5 0-7.5.5-9 2Zm0 0v14"/></svg>'
+const chat = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5h16v11H9l-5 4Z"/></svg>'
+const label = (s: string, text: string, icon = '') => {
+  switch (s) {
+    case 'S5': return `<span>${text}</span><span class="tail"></span>`
+    case 'S7': return `<span>${text}</span><span class="circ">${arrow}</span>`
+    case 'S8': return `${icon}<span>${text}</span>`
+    default: return text
+  }
+}
+---
+<Base title="Button systems">
+  <section class="section intro">
+    <div class="container">
+      <p class="eyebrow">Button systems</p>
+      <h1>10 button styles, each a full set</h1>
+      <p class="lead">Each row shows the <b>main</b> button, the <b>secondary</b> one, a <b>text link</b> and a <b>small chip</b> (like the menu filters), on the green and cream backgrounds the site uses. Hover or tap to see the movement. All are at least 44px tall so they are easy to tap.</p>
+    </div>
+  </section>
+  {systems.map((sys, n) => (
+    <section class={`section sys ${sys.id.toLowerCase()}`}>
+      <div class="container">
+        <p class="tag">{sys.id} · {sys.name}</p>
+        <p class="why">{sys.why}</p>
+        {['green', 'cream'].map((bg) => (
+          <div class={`stage ${bg}`}>
+            <a href="#" class="b primary" set:html={label(sys.id, 'See the menu', book)} />
+            <a href="#" class="b secondary" set:html={label(sys.id, 'Get in touch', chat)} />
+            <a href="#" class="t-link">Call 01706 582954</a>
+            <span class="chips"><button type="button" class="chip on">All</button><button type="button" class="chip">Nibbles</button></span>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>
+<style is:global>
+  .intro { padding-bottom: 1rem; }
+  .sys { padding: 2.25rem 0; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+  .tag { font-weight: 600; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: #b0606f; margin: 0; }
+  .why { margin: 0.3rem 0 1rem; color: var(--muted); max-width: 46rem; }
+  .stage { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; padding: 1.5rem; border-radius: 12px; margin-bottom: 0.75rem; }
+  .stage.green { background: var(--brand); --fg: #f2bfcb; --tx: #fbf3ee; --on: var(--brand); }
+  .stage.cream { background: #fffaf6; border: 1px solid #eadfd3; --fg: var(--brand); --tx: var(--ink); --on: #fffaf6; }
+  .b, .t-link, .chip { text-decoration: none; cursor: pointer; }
+  .b { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 2.9rem; transition: all 0.25s ease; }
+  .b svg { width: 1.15rem; height: 1.15rem; }
+  .t-link { color: var(--tx); font-weight: 600; text-underline-offset: 0.3em; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--fg) 70%, transparent); text-decoration-thickness: 2px; }
+  .t-link:hover { color: var(--fg); }
+  .chips { display: inline-flex; gap: 0.4rem; }
+  .chip { font: inherit; font-size: 0.8rem; font-weight: 600; min-height: 2.2rem; padding: 0 0.9rem; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); border-radius: 999px; }
+  .chip.on { background: var(--fg); color: var(--on); }
+  .b:focus-visible, .chip:focus-visible, .t-link:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
+
+  /* S1 soft pill */
+  .s1 .b { padding: 0 1.6rem; border-radius: 999px; font-family: Fredoka, var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .s1 .primary { background: var(--fg); color: var(--on); box-shadow: 0 2px 0 color-mix(in srgb, var(--fg) 60%, black); }
+  .s1 .primary:hover { transform: translateY(-1px); box-shadow: 0 4px 0 color-mix(in srgb, var(--fg) 60%, black); }
+  .s1 .primary:active { transform: translateY(2px); box-shadow: 0 0 0 transparent; }
+  .s1 .secondary { color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--fg); }
+  .s1 .secondary:hover { background: color-mix(in srgb, var(--fg) 14%, transparent); }
+
+  /* S2 sign lettering */
+  .s2 .b { padding: 0 1.5rem; border-radius: 4px; font-family: Fredoka, var(--font-body); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.32em; text-transform: uppercase; }
+  .s2 .primary { background: var(--fg); color: var(--on); }
+  .s2 .primary:hover { letter-spacing: 0.4em; }
+  .s2 .secondary { color: var(--fg); border-bottom: 2px solid var(--fg); border-radius: 0; padding: 0 0.2rem; }
+  .s2 .secondary:hover { border-bottom-width: 4px; }
+  .s2 .chip { border-radius: 4px; font-family: Fredoka, var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; font-size: 0.7rem; }
+
+  /* S3 serif italic */
+  .s3 .b { padding: 0 1.6rem; border-radius: 999px; font-family: var(--font-heading); font-style: italic; font-size: 1.15rem; }
+  .s3 .primary { background: var(--fg); color: var(--on); }
+  .s3 .primary:hover { background: var(--tx); color: var(--on); }
+  .s3 .secondary { color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg); }
+  .s3 .secondary:hover { background: var(--fg); color: var(--on); }
+  .s3 .chip { font-family: var(--font-heading); font-style: italic; font-weight: 400; font-size: 0.95rem; }
+
+  /* S4 menu-card frame */
+  .s4 .b { padding: 0 1.6rem; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; border: 1px solid var(--fg); outline: 1px solid var(--fg); outline-offset: -5px; }
+  .s4 .primary { background: var(--fg); color: var(--on); outline-color: var(--on); }
+  .s4 .secondary { color: var(--fg); }
+  .s4 .b:hover { outline-offset: -8px; }
+  .s4 .chip { border-radius: 0; }
+
+  /* S5 arrow tail */
+  .s5 .b { gap: 0.9rem; font-family: var(--font-heading); font-size: 1.2rem; color: var(--fg); padding: 0; }
+  .s5 .tail { position: relative; display: block; width: 2.5rem; height: 1.5px; background: currentColor; transition: width 0.3s ease; }
+  .s5 .tail::after { content: ''; position: absolute; right: 0; top: -4px; width: 9px; height: 9px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); }
+  .s5 .b:hover .tail { width: 4rem; }
+  .s5 .secondary { color: var(--tx); }
+
+  /* S6 accent bar */
+  .s6 .b { position: relative; padding: 0 1.4rem 0 1.6rem; border-radius: 6px; font-weight: 600; letter-spacing: 0.05em; overflow: hidden; isolation: isolate; }
+  .s6 .b::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--fg); z-index: -1; transition: width 0.3s ease; }
+  .s6 .primary { color: var(--on); background: color-mix(in srgb, var(--fg) 85%, var(--on)); }
+  .s6 .primary::before { background: var(--fg); }
+  .s6 .secondary { color: var(--tx); background: color-mix(in srgb, var(--fg) 12%, transparent); }
+  .s6 .secondary:hover { color: var(--on); }
+  .s6 .b:hover::before { width: 100%; }
+  .s6 .chip { border-radius: 6px; }
+
+  /* S7 round arrow */
+  .s7 .b { gap: 0.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--tx); padding: 0; }
+  .s7 .circ { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 50%; background: var(--fg); color: var(--on); transition: transform 0.25s; }
+  .s7 .secondary .circ { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--fg); }
+  .s7 .b:hover .circ { transform: translateX(4px); }
+
+  /* S8 icon tiles */
+  .s8 .b { flex-direction: column; gap: 0.35rem; width: 8.5rem; height: 6rem; border-radius: 14px; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; }
+  .s8 .b svg { width: 1.6rem; height: 1.6rem; }
+  .s8 .primary { background: var(--fg); color: var(--on); }
+  .s8 .secondary { color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--fg); }
+  .s8 .b:hover { transform: translateY(-3px); }
+
+  /* S9 small caps underline */
+  .s9 .b { position: relative; padding: 0 0.4rem; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--fg); }
+  .s9 .b::after { content: ''; position: absolute; left: 50%; right: 50%; bottom: 0.55rem; height: 1px; background: currentColor; transition: left 0.3s, right 0.3s; }
+  .s9 .b:hover::after { left: 0.4rem; right: 0.4rem; }
+  .s9 .primary { padding: 0 1.5rem; box-shadow: inset 0 0 0 1px var(--fg); }
+  .s9 .primary::after { display: none; }
+  .s9 .primary:hover { background: var(--fg); color: var(--on); }
+  .s9 .secondary { color: var(--tx); }
+
+  /* S10 enamel sign */
+  .s10 .b { padding: 0 1.7rem; border-radius: 999px; font-family: var(--font-heading); font-size: 1.1rem; }
+  .s10 .primary { color: var(--on); background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 75%, white), var(--fg) 55%, color-mix(in srgb, var(--fg) 85%, black)); box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--fg) 85%, black), inset 0 0 0 4.5px color-mix(in srgb, var(--fg) 40%, white), 0 3px 8px rgb(0 0 0 / 0.2); }
+  .s10 .secondary { color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--fg), inset 0 0 0 4px var(--on), inset 0 0 0 5px color-mix(in srgb, var(--fg) 60%, transparent); }
+  .s10 .b:hover { filter: brightness(1.06); transform: translateY(-1px); }
+</style>
