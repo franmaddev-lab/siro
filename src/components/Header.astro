@@ -5,8 +5,8 @@ import LogoMark from './LogoMark.astro'
 const startHidden = Astro.url.pathname === '/' && site.hero.showLogo && site.logo.svg
 const links = [
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
-  ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
   { href: '/#about', label: 'Who we are' },
+  ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
   { href: '/#contact', label: 'Get in touch' },
 ]
 ---

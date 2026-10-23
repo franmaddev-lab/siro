@@ -110,3 +110,11 @@ blockquote { font-weight: 300; }
 .sk-cookie h2 { font-family: var(--font-heading) !important; font-weight: 400 !important; }
 #contact button[type='submit'] { width: 100%; }
 button, input, select, textarea { font-family: inherit; }
+/* Section backgrounds alternate so neighbours never share a colour:
+   hero green · menu pink · photos cream · hungry green · why pink · who we are cream ·
+   follow sage · reviews green · contact cream · footer dark. */
+#about { background: var(--paper); }
+#follow { background: #e6ece3; }
+/* Home hero fills the first screen (below the header). */
+.hero { min-height: calc(100svh - 5.5rem); display: grid; align-content: center; }
+@media (max-width: 899px) { .hero { min-height: calc(100svh - 4.75rem); } }
