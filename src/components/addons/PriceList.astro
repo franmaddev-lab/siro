@@ -19,17 +19,23 @@ for (const i of a.items) {
           {groups.map((g, i) => g.name && <button type="button" aria-pressed="false" data-filter={String(i)}>{g.name.split(',')[0]}</button>)}
         </div>
       )}
+      <div class="card-menu">
       <div class="groups">
         {groups.map((g, i) => (
           <div class="group" data-group={String(i)}>
-            {g.name && <h3>{g.name}</h3>}
+            {g.name && <h3><span aria-hidden="true">✦</span>{g.name.split(',')[0]}<span aria-hidden="true">✦</span></h3>}
+            {g.name.includes(',') && <p class="when">{g.name.split(',').slice(1).join(',').trim()}</p>}
             <ul class="prices">
               {g.items.map((i) => (
-                <li><span><strong>{i.name}</strong>{i.note && <><br /><span class="muted">{i.note}</span></>}</span><span class="price">{i.price}</span></li>
+                <li>
+                  <p class="line"><span class="name">{i.name}</span><span class="dots" aria-hidden="true"></span><span class="price">{i.price}</span></p>
+                  {i.note && <p class="note">{i.note}</p>}
+                </li>
               ))}
             </ul>
           </div>
         ))}
+      </div>
       </div>
     </div>
   </section>
@@ -39,15 +45,22 @@ for (const i of a.items) {
   @media (max-width: 640px) { .pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -1rem; padding-right: 1rem; } }
   .pills button { font: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.3rem 0.8rem; white-space: nowrap; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
   .pills button[aria-pressed='true'] { background: var(--brand); color: var(--brand-text); }
-  /* Balanced columns: whole groups flow into two columns of similar length. */
-  .groups { margin-top: 0.5rem; }
-  @media (min-width: 900px) { .groups { columns: 2; column-gap: 3rem; } }
-  .group { break-inside: avoid; }
+  /* Printed menu card: double border, ornaments, dotted leaders to the price. */
+  .card-menu { margin-top: 1.5rem; background: #fffdf8; padding: clamp(1.25rem, 5vw, 3rem); border: 1px solid #d9c9b4; outline: 1px solid #d9c9b4; outline-offset: -10px; box-shadow: 0 10px 30px rgb(0 0 0 / 0.06); }
+  @media (min-width: 900px) { .groups { columns: 2; column-gap: 4rem; } }
+  .group { break-inside: avoid; padding-bottom: 1.5rem; }
   .group[hidden] { display: none; }
-  h3 { margin: 0 0 0.25rem; padding-top: 1.5rem; }
-  .prices { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
-  .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
-  .price { font-weight: 700; white-space: nowrap; }
+  h3 { display: flex; justify-content: center; align-items: center; gap: 0.9rem; text-align: center; color: var(--brand); margin: 0 0 1rem; padding-top: 0.5rem; }
+  h3 span { color: #c9877f; letter-spacing: 0; }
+  .when { text-align: center; margin: -0.6rem 0 1rem; font-family: var(--font-heading); font-style: italic; color: var(--muted); font-size: 0.95rem; }
+  @media (max-width: 640px) { .card-menu { padding: 1.25rem 1rem; outline-offset: -6px; margin-left: -0.5rem; margin-right: -0.5rem; } h3 { gap: 0.6rem; } }
+  .prices { list-style: none; margin: 0; padding: 0; }
+  .prices li { margin-bottom: 0.95rem; }
+  .line { display: flex; align-items: baseline; gap: 0.5rem; margin: 0; }
+  .name { font-family: var(--font-heading); font-size: 1.1rem; }
+  .dots { flex: 1; min-width: 1rem; border-bottom: 2px dotted #c9b9a4; transform: translateY(-0.3rem); }
+  .price { font-family: var(--font-heading); color: var(--brand); white-space: nowrap; }
+  .note { margin: 0.1rem 0 0; font-size: 0.9rem; color: var(--muted); font-style: italic; }
 </style>
 <script>
   document.querySelectorAll<HTMLElement>('#prices').forEach((sec) => {

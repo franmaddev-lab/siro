@@ -23,9 +23,15 @@ const h = site.hero
         {h.eyebrow && <p class="eyebrow">{h.eyebrow}</p>}
         <h1>{h.heading.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h1>
         <p class="lead">{h.text.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>
-        <p class="actions">
-          {site.addons.priceList.mode !== 'off' && <a class="btn" href="#prices"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 6.5C10.5 5 8 4.5 3 4.5v14c5 0 7.5.5 9 2 1.5-1.5 4-2 9-2v-14c-5 0-7.5.5-9 2Zm0 0v14"/></svg>See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
-          <a class="btn" href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4Z"/></svg>Get in touch</a>
+        <p class="links">
+          {site.addons.priceList.mode !== 'off' && (
+            <a class="ul-link" href="#prices">See the {site.addons.priceList.heading.toLowerCase() || 'prices'} <span class="arrow" aria-hidden="true">→</span>
+              <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 60 4, 120 18, 180 9 S 270 6, 297 11" /></svg>
+            </a>
+          )}
+          <a class="ul-link" href="#contact">Get in touch <span class="arrow" aria-hidden="true">→</span>
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 70 16, 130 3, 190 11 S 260 15, 297 8" /></svg>
+          </a>
         </p>
         {h.badges.length > 0 && <ul class="badges">{h.badges.map((b) => <li>{b}</li>)}</ul>}
         <p class="where">
@@ -93,6 +99,15 @@ const h = site.hero
   .cta .actions { justify-content: center; }
   .btn.invert { background: var(--brand-text); color: var(--brand); border-color: var(--brand-text); }
   .btn.ghost { background: transparent; color: var(--brand-text); border-color: var(--brand-text); }
+  /* Hero links: curly font with a hand-drawn underline that draws itself on hover. */
+  .links { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin-top: 1.75rem; }
+  .ul-link { position: relative; font-family: var(--font-heading); font-size: 1.55rem; color: #f2bfcb; text-decoration: none; padding-bottom: 0.35rem; white-space: nowrap; }
+  .ul-link svg { position: absolute; left: 0; bottom: -0.2rem; width: 100%; height: 0.8rem; overflow: visible; }
+  .ul-link path { fill: none; stroke: #f2bfcb; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 320; stroke-dashoffset: 120; transition: stroke-dashoffset 0.5s ease; }
+  .ul-link:hover path, .ul-link:focus-visible path { stroke-dashoffset: 0; }
+  .ul-link .arrow { display: inline-block; transition: transform 0.25s; }
+  .ul-link:hover .arrow, .ul-link:focus-visible .arrow { transform: translateX(0.4rem); }
+  @media (max-width: 640px) { .ul-link { font-size: 1.3rem; } .links { gap: 1rem 1.75rem; } }
   .ico { width: 1.15em; height: 1.15em; margin-right: 0.5em; vertical-align: -0.2em; }
   .hero-logo { color: #f2bfcb; max-width: 30rem; justify-self: center; width: 100%; }
   @media (min-width: 1000px) { .hero-grid:has(.hero-logo) { grid-template-columns: 1.1fr 1fr; } }
