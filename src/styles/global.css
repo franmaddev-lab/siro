@@ -133,3 +133,9 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
 /* SiRo Sign is wide, so section titles get the full width instead of wrapping early. */
 h2 { max-width: none !important; }
 @media (min-width: 900px) { #about h2, #reviews h2, #gallery h2 { white-space: nowrap; } }
+/* SiRo Sign is light; at small sizes (buttons, menu, labels) give it a little more size and weight. */
+.btn, .eyebrow, h3, .site-header nav a, #prices h3 { -webkit-text-stroke: 0.45px currentColor; }
+.btn { font-size: 0.95rem !important; }
+.site-header nav a { font-size: 1rem !important; }
+.eyebrow { font-size: 0.9rem !important; }
+h3 { font-size: 0.95rem !important; }
