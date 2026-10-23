@@ -105,8 +105,9 @@ export type SiteConfig = {
      * locked: password page in front, hidden from search engines. Needs PREVIEW_PASSWORD
      *         (and optionally PREVIEW_NOTIFY_URL) set as Netlify environment variables.
      * expired: every address shows "preview no longer available".
+     * open: no password page, but still hidden from search engines and no paid production builds.
      */
-    mode: 'off' | 'locked' | 'expired'
+    mode: 'off' | 'locked' | 'open' | 'expired'
     /** Shown on the password and expired pages so the prospect can reach the owner. */
     contactLine: string
   }
@@ -289,7 +290,7 @@ const site: SiteConfig = {
 
   preview: {
     // Keep this line's layout: netlify.toml reads it to skip paid builds for previews.
-    mode: 'locked',
+    mode: 'open',
     contactLine: 'Questions? Reply to the message that brought you here.',
   },
 }
