@@ -4,23 +4,37 @@ import DemoTag from '../DemoTag.astro'
 const a = site.addons.reviews
 ---
 {a.mode !== 'off' && (
-  <section class="section" id="reviews">
+  <section class="section reviews" id="reviews">
     <div class="container">
-      <h2>What customers say <DemoTag mode={a.mode} /></h2>
+      <div class="head">
+        <h2>{a.heading || 'What customers say'} <DemoTag mode={a.mode} /></h2>
+        {a.rating && (
+          <p class="summary"><span class="big">{a.rating}</span><span class="stars" aria-hidden="true">★★★★★</span>{a.count && <span>from {a.count} reviews</span>}</p>
+        )}
+      </div>
       <div class="grid cols-3">
         {a.items.map((r) => (
           <figure class="card">
             <p aria-label={`${r.stars} out of 5 stars`} class="stars">{'★'.repeat(r.stars)}</p>
-            <blockquote>{r.text}</blockquote>
-            <figcaption class="muted">{r.name}</figcaption>
+            <blockquote>“{r.text}”</blockquote>
+            <figcaption>{r.name}</figcaption>
           </figure>
         ))}
       </div>
+      {a.link && <p class="more"><a class="btn invert" href={a.link} rel="noopener">Read all our reviews on Google</a></p>}
     </div>
   </section>
 )}
 <style>
-  figure { margin: 0; }
-  blockquote { margin: 0 0 0.75rem; }
-  .stars { color: var(--brand); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .reviews { background: var(--brand); color: var(--brand-text); }
+  .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+  .summary { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
+  .big { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; }
+  figure { margin: 0; color: var(--ink); }
+  blockquote { margin: 0 0 0.75rem; font-family: var(--font-heading); font-size: 1.15rem; }
+  figcaption { color: var(--muted); }
+  .stars { color: #c9877f; letter-spacing: 0.1em; margin: 0 0 0.5rem; }
+  .summary .stars { color: var(--surface); }
+  .more { margin-top: 1.75rem; text-align: center; }
+  .btn.invert { background: var(--brand-text); color: var(--brand); border-color: var(--brand-text); }
 </style>

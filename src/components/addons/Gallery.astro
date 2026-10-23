@@ -6,7 +6,7 @@ const a = site.addons.gallery
 {a.mode !== 'off' && a.images.length > 0 && (
   <section class="section" id="gallery">
     <div class="container">
-      <h2>Our work <DemoTag mode={a.mode} /></h2>
+      <h2>{a.heading || 'Our work'} <DemoTag mode={a.mode} /></h2>
       <div class="grid cols-3">
         {a.images.map((i) => <img src={i.src} alt={i.alt} loading="lazy" />)}
       </div>

@@ -41,7 +41,8 @@ export type SiteConfig = {
     hours: { days: string; time: string }[]
   }
 
-  social: { facebook: string; instagram: string }
+  /** `handle` like '@siro.16'. `showSection` adds a "follow us" band to the home page. */
+  social: { facebook: string; instagram: string; handle: string; showSection: boolean }
 
   hero: { eyebrow: string; heading: string; text: string; image: string; cta: string; badges: string[] }
   servicesSection: { eyebrow: string; heading: string; intro: string }
@@ -58,9 +59,11 @@ export type SiteConfig = {
     contactForm: { mode: AddonMode }
     /** live: `url` is the client's Calendly or Cal.com link. */
     booking: { mode: AddonMode; url: string; services: string[] }
-    priceList: { mode: AddonMode; items: { name: string; note: string; price: string }[] }
-    gallery: { mode: AddonMode; images: { src: string; alt: string }[] }
-    reviews: { mode: AddonMode; items: { name: string; text: string; stars: number }[] }
+    /** `group` starts a new heading in the list (e.g. Breakfast, Small plates). */
+    priceList: { mode: AddonMode; heading: string; intro: string; items: { name: string; note: string; price: string; group?: string }[] }
+    gallery: { mode: AddonMode; heading: string; images: { src: string; alt: string }[] }
+    /** `link` is the Google reviews page; `rating` like '4.8' and `count` show a summary badge. */
+    reviews: { mode: AddonMode; heading: string; link: string; rating: string; count: string; items: { name: string; text: string; stars: number }[] }
     /**
      * Step-by-step quote form. Nothing is stored: the last step opens the visitor's WhatsApp
      * or email app with the answers filled in. demo: shows the message instead of sending.
@@ -101,134 +104,142 @@ export type SiteConfig = {
 }
 
 const site: SiteConfig = {
-  name: 'Example Business',
-  tagline: 'Friendly local service you can rely on',
-  description: 'Example Business: friendly, reliable local service. Get in touch for a free quote.',
+  name: "SiRo' Mangia & Bevi",
+  tagline: 'Italian café bistrot in the heart of Rochdale',
+  description: "SiRo' Mangia & Bevi: Italian café bistrot on Baillie Street, Rochdale. Brunch from 10am, small plates, risotto and pasta until 9pm.",
   lang: 'en-GB',
   url: '',
 
   theme: {
-    brand: '#1f5f8b',
-    brandText: '#ffffff',
-    ink: '#1c2126',
-    paper: '#ffffff',
-    surface: '#f3f5f7',
-    muted: '#5b6670',
-    radius: '10px',
+    brand: '#2e4a36',
+    brandText: '#fbf3ee',
+    ink: '#1f2a22',
+    paper: '#fffaf6',
+    surface: '#f6e6e8',
+    muted: '#5d6a60',
+    radius: '14px',
     fontHeading: 'Georgia, "Times New Roman", serif',
     fontBody: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
     fontFaces: [],
   },
 
   contact: {
-    phone: '01234 567890',
-    whatsapp: '447700900123',
+    phone: '01706 582954',
+    // Not known yet: the landline cannot take WhatsApp. Add a mobile to show the button.
+    whatsapp: '',
     whatsappMessage: 'Hi, I found you through your website.',
-    email: 'hello@example.com',
-    address: '1 High Street, Exampleton, EX1 2AB',
-    area: 'Exampleton and nearby',
+    email: '',
+    address: '16 Baillie Street, Rochdale, OL16 1JG',
+    area: 'Rochdale town centre',
     hours: [
-      { days: 'Monday to Friday', time: '8am to 6pm' },
-      { days: 'Saturday', time: '9am to 1pm' },
+      { days: 'Tuesday to Saturday', time: '10am to 9pm' },
+      { days: 'Sunday and Monday', time: 'Closed' },
     ],
   },
 
-  social: { facebook: '', instagram: '' },
-
-  hero: {
-    eyebrow: 'Local and independent',
-    heading: 'Friendly local service you can rely on',
-    text: 'A short, plain sentence about what the business does and who it is for.',
-    image: '',
-    cta: 'Get in touch',
-    badges: ['Free quotes', 'Fully insured'],
+  social: {
+    facebook: 'https://www.facebook.com/share/18zqJedRY2/',
+    instagram: 'https://www.instagram.com/siro.16',
+    handle: '@siro.16',
+    showSection: true,
   },
 
-  servicesSection: { eyebrow: 'What we do', heading: 'Everything you need, sorted.', intro: '' },
+  hero: {
+    eyebrow: "Mangia & Bevi · Café Bistrot",
+    heading: 'Come for the food, stay for the experience.',
+    text: 'Fresh Italian cooking and warm, personal service on Baillie Street. Brunch from 10am, small plates, risotto and pasta into the evening.',
+    image: '/images/owners.jpg',
+    cta: 'Book a table',
+    badges: ['Brunch 10am to 2pm', 'Small plates until 9pm', 'Private celebrations'],
+  },
+
+  servicesSection: { eyebrow: 'Eat & drink', heading: 'From morning coffee to an evening glass of wine.', intro: '' },
 
   services: [
-    { name: 'First service', text: 'One line on what it is and why it helps.' },
-    { name: 'Second service', text: 'One line on what it is and why it helps.' },
-    { name: 'Third service', text: 'One line on what it is and why it helps.' },
+    { name: 'Breakfast & brunch', text: "SiRo' Benedict, avocado with stracciatella, French toast with Nutella and pistachio, and pastries at the bar." },
+    { name: 'Afternoons & evenings', text: 'Nibbles to share, saffron risotto with prawns, slow-cooked spezzatino, lasagna and fresh fettuccine.' },
+    { name: 'Celebrations', text: 'Birthdays, anniversaries and wedding parties: tell us the date and we will set the table.' },
   ],
 
   whyUs: {
     enabled: true,
-    eyebrow: 'Why us',
-    heading: 'A local business you will recommend.',
+    eyebrow: 'Why SiRo’',
+    heading: 'A little corner of Italy in Rochdale.',
     points: [
-      { title: 'One point of contact', text: 'The person who quotes is the person who does the job.' },
-      { title: 'Clear prices up front', text: 'You know where you stand before any work starts.' },
+      { title: 'Cooked fresh by Luca', text: 'Our chef cooks Italian classics his way, with good ingredients and bold flavours.' },
+      { title: 'Looked after by Danilo', text: 'Warm, personal service from the moment you walk in.' },
+      { title: 'Brunch to dinner', text: 'One place for a weekday brunch, a quick lunch or a relaxed evening.' },
     ],
     stats: [],
   },
 
-  howItWorks: {
-    enabled: true,
-    eyebrow: 'How it works',
-    heading: 'Simple from first message to finished job.',
-    steps: [
-      { title: 'Tell us the job', text: 'Call, message or use the form.' },
-      { title: 'Get a price', text: 'A clear quote with no obligation.' },
-      { title: 'Job done', text: 'On the agreed day, left clean and tidy.' },
-    ],
-  },
+  howItWorks: { enabled: false, eyebrow: '', heading: '', steps: [] },
 
   about: {
     heading: 'Who we are',
     paragraphs: [
-      'A couple of sentences about who runs the business and how long they have been doing it.',
-      'A couple of sentences about how they work and what customers can expect.',
+      "At SiRo' Mangia & Bevi we are an Italian duo: Danilo, the heart behind the service, and Luca, the creative mind in the kitchen. Together we have created a special space that blends delicious food with warm, personal service.",
+      'As chef, manager and owners, we believe in bringing out the best in each other and our team, so that every meal and every moment at our bistrot feels special.',
+      "Whether you are here for a casual bite or a relaxing evening, we can't wait to welcome you.",
     ],
-    image: '',
+    image: '/images/logo-wall.jpg',
     showOnHome: true,
   },
 
-  cta: { heading: 'Ready to get started?', text: 'Get a free, no-obligation quote today.' },
+  cta: { heading: 'Hungry yet?', text: 'Book a table, or just drop in. Mangia e bevi!' },
 
   addons: {
     contactForm: { mode: 'demo' },
-    booking: { mode: 'demo', url: '', services: ['First service', 'Second service'] },
+    booking: { mode: 'demo', url: '', services: ['Table for brunch', 'Table for lunch or dinner', 'Private celebration'] },
     priceList: {
-      mode: 'demo',
+      mode: 'live',
+      heading: 'Menu',
+      intro: 'A taste of the menu. Prices in pounds. Allergies: please let our staff know.',
       items: [
-        { name: 'First service', note: 'What is included', price: 'from £40' },
-        { name: 'Second service', note: 'What is included', price: 'from £75' },
-        { name: 'Third service', note: 'What is included', price: 'from £120' },
+        { group: 'Breakfast & brunch, 10am to 2pm', name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '12.75' },
+        { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil béarnaise on sourdough', price: '8.75' },
+        { name: "SiRo' Florentine", note: 'Sautéed garlic spinach, poached eggs, hollandaise on sourdough', price: '8.25' },
+        { name: "SiRo' Avotoast", note: 'Fresh avocado, creamy stracciatella, roasted cherry tomatoes and basil oil', price: '9.75' },
+        { name: "SiRo' PLT", note: 'A Mediterranean BLT with Parma ham on sourdough', price: '8.75' },
+        { name: "SiRo' Salmon Toast", note: 'Smoked salmon, scrambled eggs on sourdough, chive oil', price: '9.75' },
+        { name: "SiRo' French Toast", note: 'Banana, Nutella and crushed pistachio', price: '7.25' },
+        { name: 'Pastries', note: 'Selection at the bar, each / with coffee', price: '3.75 / 5.50' },
+        { group: 'Nibbles, 12pm to 9pm', name: 'Bruschetta Mix', note: 'Tomato salad, Parma ham and burrata, hummus, roast pepper and chive', price: '6.75' },
+        { name: 'Aubergine croquettes', note: 'With a creamy tomato and basil sauce', price: '6.25' },
+        { name: 'Potato and cheese croquettes', note: 'Neapolitan street food with pecorino and smoked provola', price: '6.25' },
+        { name: 'Mangia & Bevi', note: 'Spring onions wrapped in pancetta', price: '4.25' },
+        { group: 'Small plates', name: 'Risotto zafferano e gamberi', note: 'Saffron risotto with prawns, a twist on the Milanese classic', price: '13.25' },
+        { name: 'Fillet with beets', note: '180g beef fillet, beetroot sauce, chive oil and roast potatoes', price: '15.75' },
+        { name: 'Seabass in tempura', note: 'With roast peppers and courgette purée', price: '12.75' },
+        { name: 'Slow-cooked spezzatino', note: 'Beef stew in red wine with potatoes', price: '12.75' },
+        { name: "SiRo' Lasagna", note: 'Classic Italian beef lasagna', price: '9.75' },
+        { name: 'Fettuccine zucchine e gamberi', note: 'Fresh fettuccine, courgette cream and prawns', price: '10.75' },
       ],
     },
-    gallery: { mode: 'off', images: [] },
+    gallery: {
+      mode: 'live',
+      heading: "Inside SiRo'",
+      images: [
+        { src: '/images/owners.jpg', alt: 'Danilo and Luca at the bar' },
+        { src: '/images/logo-wall.jpg', alt: "The SiRo' Mangia & Bevi sign" },
+        { src: '/images/celebration.jpg', alt: 'A table set for a wedding celebration' },
+      ],
+    },
     reviews: {
       mode: 'demo',
+      heading: 'What our guests say',
+      // Google listing shared by the owner. Swap the sample quotes for real ones, with permission.
+      link: 'https://share.google/MXgmGyLXOlNn3g4n5',
+      rating: '',
+      count: '',
       items: [
-        { name: 'Sample customer', text: 'Turned up on time and did a great job.', stars: 5 },
-        { name: 'Sample customer', text: 'Clear price up front and no mess left behind.', stars: 5 },
-        { name: 'Sample customer', text: 'Would happily recommend to friends and family.', stars: 5 },
+        { name: 'Sample guest', text: 'Lovely food and such a warm welcome. The risotto was amazing.', stars: 5 },
+        { name: 'Sample guest', text: 'Best brunch in Rochdale. The Benedict is a must.', stars: 5 },
+        { name: 'Sample guest', text: 'Had our celebration here and they made it really special.', stars: 5 },
       ],
     },
-    quote: {
-      mode: 'demo',
-      eyebrow: 'Free quote',
-      heading: 'Get your quote in under a minute.',
-      intro: 'Answer a few quick questions and send them straight to us by WhatsApp or email.',
-      bullets: ['Takes about 60 seconds', 'No obligation'],
-      steps: [
-        {
-          title: 'What do you need?',
-          hint: 'Pick the closest match.',
-          fields: [{ type: 'choice', label: 'Job', options: [{ label: 'First service' }, { label: 'Second service' }, { label: 'Something else', note: 'Tell us about it' }] }],
-        },
-        {
-          title: 'When do you need us?',
-          hint: 'And anything else worth knowing.',
-          fields: [
-            { type: 'choice', label: 'Timing', options: [{ label: 'This week' }, { label: 'This month' }, { label: 'No rush' }] },
-            { type: 'textarea', label: 'Details (optional)' },
-          ],
-        },
-      ],
-    },
-    map: { mode: 'off', embedUrl: '' },
+    quote: { mode: 'off', eyebrow: '', heading: '', intro: '', bullets: [], steps: [] },
+    map: { mode: 'live', embedUrl: 'https://www.google.com/maps?q=16+Baillie+Street,+Rochdale+OL16+1JG&output=embed' },
   },
 
   goatcounter: '',

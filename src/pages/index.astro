@@ -8,6 +8,7 @@ import Reviews from '../components/addons/Reviews.astro'
 import Quote from '../components/addons/Quote.astro'
 import WhyUs from '../components/WhyUs.astro'
 import HowItWorks from '../components/HowItWorks.astro'
+import Social from '../components/Social.astro'
 const ss = site.servicesSection
 const quoteOn = site.addons.quote.mode !== 'off'
 const h = site.hero
@@ -20,10 +21,12 @@ const h = site.hero
         <h1>{h.heading}</h1>
         <p class="lead">{h.text}</p>
         <p class="actions">
-          <a class="btn" href={quoteOn ? '#quote' : '/contact/'}>{h.cta}</a>
+          <a class="btn" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '/contact/'}>{h.cta}</a>
+          {site.addons.priceList.mode !== 'off' && <a class="btn outline" href="#prices">See the {site.addons.priceList.heading.toLowerCase() || 'prices'}</a>}
           {site.contact.phone && <a class="btn outline" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>Call {site.contact.phone}</a>}
         </p>
         {h.badges.length > 0 && <ul class="badges">{h.badges.map((b) => <li>{b}</li>)}</ul>}
+        {site.contact.address && <p class="where muted">{site.contact.address}{site.contact.hours[0] && <> · {site.contact.hours[0].days}, {site.contact.hours[0].time}</>}</p>}
       </div>
       {h.image && <img src={h.image} alt="" />}
     </div>
@@ -43,12 +46,13 @@ const h = site.hero
   </section>
 
   <PriceList />
+  <Reviews />
   <Gallery />
   <WhyUs />
+  <Social />
   <HowItWorks />
   <Booking />
   <Quote />
-  <Reviews />
 
   {site.about.showOnHome && (
     <section class="section alt">
@@ -78,6 +82,7 @@ const h = site.hero
   .hero h1 { font-weight: 800; max-width: 16ch; }
   .badges { list-style: none; padding: 0; margin: 1.75rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-weight: 600; }
   .badges li::before { content: '✓'; color: var(--brand); margin-right: 0.5rem; }
+  .where { margin-top: 1rem; }
   .services-grid { margin-top: 2rem; }
   .cta { background: var(--brand); color: var(--brand-text); text-align: center; }
   .cta h2 { max-width: none; }

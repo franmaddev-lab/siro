@@ -2,20 +2,36 @@
 import site from '../../../site.config'
 import DemoTag from '../DemoTag.astro'
 const a = site.addons.priceList
+const groups: { name: string; items: typeof a.items }[] = []
+for (const i of a.items) {
+  if (!groups.length || (i.group && i.group !== groups[groups.length - 1].name)) groups.push({ name: i.group ?? '', items: [] })
+  groups[groups.length - 1].items.push(i)
+}
 ---
 {a.mode !== 'off' && (
   <section class="section alt" id="prices">
     <div class="container">
-      <h2>Prices <DemoTag mode={a.mode} /></h2>
-      <ul class="prices">
-        {a.items.map((i) => (
-          <li><span><strong>{i.name}</strong><br /><span class="muted">{i.note}</span></span><span class="price">{i.price}</span></li>
+      <h2>{a.heading || 'Prices'} <DemoTag mode={a.mode} /></h2>
+      {a.intro && <p class="lead">{a.intro}</p>}
+      <div class="groups">
+        {groups.map((g) => (
+          <div>
+            {g.name && <h3>{g.name}</h3>}
+            <ul class="prices">
+              {g.items.map((i) => (
+                <li><span><strong>{i.name}</strong>{i.note && <><br /><span class="muted">{i.note}</span></>}</span><span class="price">{i.price}</span></li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 )}
 <style>
+  .groups { display: grid; gap: 1rem 3rem; margin-top: 1.5rem; }
+  @media (min-width: 900px) { .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  h3 { margin: 1.5rem 0 0.25rem; }
   .prices { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
   .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
   .price { font-weight: 700; white-space: nowrap; }

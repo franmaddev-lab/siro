@@ -1,0 +1,28 @@
+---
+import site from '../../site.config'
+const s = site.social
+const photos = site.addons.gallery.images.slice(0, 4)
+---
+{s.showSection && (s.instagram || s.facebook) && (
+  <section class="section alt" id="follow">
+    <div class="container">
+      <p class="eyebrow">Follow along</p>
+      <h2>Specials, events and new dishes first on {s.handle || 'social media'}</h2>
+      {s.instagram && photos.length > 0 && (
+        <div class="strip">
+          {photos.map((p) => <a href={s.instagram} rel="noopener"><img src={p.src} alt={p.alt} loading="lazy" /></a>)}
+        </div>
+      )}
+      <p class="actions">
+        {s.instagram && <a class="btn" href={s.instagram} rel="noopener">Instagram {s.handle}</a>}
+        {s.facebook && <a class="btn outline" href={s.facebook} rel="noopener">Facebook</a>}
+      </p>
+    </div>
+  </section>
+)}
+<style>
+  .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; margin-top: 1.5rem; }
+  .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); transition: transform 0.2s; }
+  .strip a:hover img { transform: scale(1.02); }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+</style>
