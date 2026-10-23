@@ -91,8 +91,11 @@ blockquote { font-weight: 300; }
   .hero { padding: 2.5rem 0 3rem !important; }
   .hero .hero-logo { order: -1; max-width: 15rem !important; }
   .hero .actions { display: grid !important; grid-template-columns: 1fr 1fr; gap: 0.6rem !important; }
-  .hero .actions .btn { justify-content: center; text-align: center; padding-left: 0.5rem; padding-right: 0.5rem; }
+  .hero .actions .btn { justify-content: center; text-align: center; padding-left: 0.5rem; padding-right: 0.5rem; white-space: nowrap; letter-spacing: 0.06em; font-size: 0.8rem; }
   .hero .break { display: none; }
   .section { padding-top: 3rem; padding-bottom: 3rem; }
   .sk-wa { width: 3.1rem !important; height: 3.1rem !important; }
+}
+@media (max-width: 640px) {
+  #contact form .btn, #contact button[type='submit'], #book form .btn { width: 100%; }
 }
