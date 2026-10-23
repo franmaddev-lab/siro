@@ -44,8 +44,11 @@ export type SiteConfig = {
     hours: { days: string; time: string }[]
   }
 
-  /** `handle` like '@siro.16'. `showSection` adds a "follow us" band to the home page. */
-  social: { facebook: string; instagram: string; handle: string; showSection: boolean }
+  /**
+   * `handle` like '@siro.16'. `showSection` adds a "follow us" band to the home page.
+   * `photos`: people and places for that band; use 4 (or 8) so the grid is always full.
+   */
+  social: { facebook: string; instagram: string; handle: string; showSection: boolean; photos: { src: string; alt: string }[] }
 
   hero: { eyebrow: string; heading: string; text: string; image: string; /** Shows the logo instead of the image. */ showLogo: boolean; cta: string; badges: string[] }
   servicesSection: { eyebrow: string; heading: string; intro: string }
@@ -157,6 +160,13 @@ const site: SiteConfig = {
     instagram: 'https://www.instagram.com/siro.16',
     handle: '@siro.16',
     showSection: true,
+    // From @siro.16 on Instagram: the team and the place, not food (that is in the gallery).
+    photos: [
+      { src: '/images/street.jpg', alt: "The street outside SiRo'" },
+      { src: '/images/team-christmas.jpg', alt: "The SiRo' team with a Christmas elf" },
+      { src: '/images/shopfront.jpg', alt: "The SiRo' sign above the door" },
+      { src: '/images/sign-flowers.jpg', alt: "SiRo' sign with hanging flowers" },
+    ],
   },
 
   hero: {

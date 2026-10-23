@@ -2,7 +2,8 @@
 import site from '../../site.config'
 import SocialIcons from './SocialIcons.astro'
 const s = site.social
-const photos = site.addons.gallery.images.slice(-4)
+// Whole rows only: 2 across on phones, 4 on wider screens, so trim to a multiple of 4.
+const photos = s.photos.slice(0, Math.floor(s.photos.length / 4) * 4 || s.photos.length)
 ---
 {s.showSection && (s.instagram || s.facebook) && (
   <section class="section alt" id="follow">
@@ -19,7 +20,8 @@ const photos = site.addons.gallery.images.slice(-4)
   </section>
 )}
 <style>
-  .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; margin-top: 1.5rem; }
+  .strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
+  @media (min-width: 760px) { .strip { grid-template-columns: repeat(4, 1fr); } }
   .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); transition: transform 0.2s; }
   .strip a:hover img { transform: scale(1.02); }
   .icons { color: var(--brand); }
