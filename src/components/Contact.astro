@@ -9,7 +9,7 @@ const c = site.contact
     <p class="eyebrow">Get in touch</p>
     <h2>Come and see us</h2>
     <div class="grid cols-2">
-      <div class="find">
+      <div class="find card">
         <h3>Find us</h3>
         {c.hours.length > 0 && (
           <ul class="details">{c.hours.map((h) => <li><strong>{h.days}</strong><span>{h.time}</span></li>)}</ul>
@@ -34,7 +34,8 @@ const c = site.contact
 <style>
   .details { list-style: none; padding: 0; margin: 0 0 1.5rem; }
   .details li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
-  .find :global(.map) { margin-top: 0; }
+  .find :global(.map) { margin-top: 1.25rem; }
+  .find { align-self: start; }
   .find :global(.map h2) { display: none; }
   .details li { grid-template-columns: auto 1fr; gap: 1.5rem; }
   .details strong { white-space: nowrap; min-width: 7rem; }
@@ -45,7 +46,7 @@ const c = site.contact
   #contact .right-col :global(h2) { font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2rem; max-width: none; display: flex; align-items: center; gap: 0.75rem; }
   /* Two separate bordered cards: contact details, then the message form. */
   .right-col { display: grid; gap: 1.25rem; align-content: start; }
-  .contact-card, .right-col :global(.form-card) { padding: clamp(1.25rem, 3vw, 2rem); }
+  .find, .contact-card, .right-col :global(.form-card) { padding: clamp(1.25rem, 3vw, 2rem); }
   .contact-card .details { margin-bottom: 0; }
   .right-col :global(h2) { margin-top: 0 !important; }
 </style>

@@ -8,7 +8,7 @@ const urlFor = (name?: string) => a.sources.find((x) => x.name === name)?.url
   <section class="section reviews" id="reviews">
     <div class="container">
       <div class="head">
-        <h2>{a.heading || 'What customers say'} <DemoTag mode={a.mode} /></h2>
+        <h2>{a.heading || 'What customers say'}</h2>
         <p class="arrows"><button type="button" data-dir="-1" aria-label="Previous reviews">←</button><button type="button" data-dir="1" aria-label="More reviews">→</button></p>
         {a.rating && (
           <p class="summary"><span class="big">{a.rating}</span><span class="stars" aria-hidden="true">★★★★★</span>{a.count && <span>from {a.count} reviews</span>}</p>

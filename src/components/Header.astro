@@ -38,7 +38,7 @@ const links = [
   .tagline { display: flex; justify-content: space-between; font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.66rem; letter-spacing: 0; line-height: 1; text-transform: uppercase; color: #f2bfcb; padding: 0 0.15rem; }
   .sub { display: flex; flex-direction: column; gap: 0.35rem; padding-left: 0.9rem; border-left: 1.5px solid color-mix(in srgb, #f2bfcb 60%, transparent); font-family: var(--font-body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; line-height: 1; color: var(--brand-text); }
   nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
-  nav a { color: var(--brand-text); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
+  nav a { color: var(--brand-text); text-decoration: none; padding: 0.4rem 0; font-family: 'SiRo Sign', var(--font-body); font-weight: 400; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.9rem; }
   nav a:hover { color: #f2bfcb; }
   .btn.small { padding: 0.45rem 1rem; color: var(--brand-text); }
   .right { display: none; align-items: center; gap: 0.75rem; }
@@ -61,7 +61,7 @@ const links = [
   /* Phones, home page: the big logo sits in the hero; once it scrolls away the small one appears here. */
   @media (max-width: 899px) {
     .brand { transition: opacity 0.35s ease, transform 0.35s ease; transform-origin: left center; }
-    .site-header.logo-in-hero .brand { opacity: 0; transform: translateY(1.5rem) scale(1.6); pointer-events: none; }
+    .site-header.logo-in-hero:not(.open) .brand { opacity: 0; transform: translateY(1.5rem) scale(1.6); pointer-events: none; }
   }
 </style>
 <script>

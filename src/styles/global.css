@@ -132,3 +132,4 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
 .eyebrow, h3, .btn, .tag-caps { font-family: 'SiRo Sign', var(--font-body) !important; font-weight: 400 !important; letter-spacing: 0.12em !important; }
 /* SiRo Sign is wide, so section titles get the full width instead of wrapping early. */
 h2 { max-width: none !important; }
+@media (min-width: 900px) { #about h2, #reviews h2, #gallery h2 { white-space: nowrap; } }
