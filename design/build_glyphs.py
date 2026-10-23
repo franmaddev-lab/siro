@@ -8,7 +8,7 @@ def load(n):
     im=im.resize((max(1,round(im.width*s)),H),Image.LANCZOS)
     # Slightly thinner than the sign so the small counters (A, B, R, O...) stay open.
     return thin(im.point(lambda v:255 if v>140 else 0))
-def thin(im, blur=8, cut=215):
+def thin(im, blur=10, cut=236):
     # Pad first so the outer edges thin too (letters are cropped tight), then crop back.
     P=30; pad=Image.new('L',(im.width+2*P,im.height+2*P),0); pad.paste(im,(P,P))
     t=pad.filter(ImageFilter.GaussianBlur(blur)).point(lambda v:255 if v>cut else 0)
@@ -77,6 +77,6 @@ for k,im in G.items():
     # pad so tracing sees edges; keep baseline: bottom of cap = row H
     pad=Image.new('L',(im.width+20,max(im.height,H)+60),0); pad.paste(im,(10,30))
     # Trace at 2x with a soft blur so the outlines come out smooth.
-    pad=pad.resize((pad.width*2,pad.height*2),Image.LANCZOS).filter(ImageFilter.GaussianBlur(14))
+    pad=pad.resize((pad.width*2,pad.height*2),Image.LANCZOS).filter(ImageFilter.GaussianBlur(18))
     pad.point(lambda v:255 if v>127 else 0).save(f'glyphs/{name}.png')
 print(sorted(G))
