@@ -214,7 +214,7 @@ const site: SiteConfig = {
     showOnHome: true,
   },
 
-  cta: { heading: 'Hungry yet?', text: 'Call us to book a table, or just drop in. Mangia e bevi!' },
+  cta: { heading: 'Hungry yet?', text: 'Call us to book or drop in.\nMangia e bevi!' },
 
   addons: {
     contactForm: { mode: 'demo' },
