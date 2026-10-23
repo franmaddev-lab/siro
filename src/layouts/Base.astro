@@ -1,0 +1,62 @@
+---
+import site from '../../site.config'
+import '../styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+interface Props { title?: string; description?: string }
+const { title, description = site.description } = Astro.props
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`
+const hidden = site.preview.mode !== 'off'
+const t = site.theme
+const fontCss = t.fontFaces.map((f) => `@font-face{font-family:"${f.family}";src:url("${f.src}") format("woff2");font-weight:${f.weight};font-display:swap}`).join('')
+const themeCss = `${fontCss}:root{--brand:${t.brand};--brand-text:${t.brandText};--ink:${t.ink};--paper:${t.paper};--surface:${t.surface};--muted:${t.muted};--radius:${t.radius};--font-heading:${t.fontHeading};--font-body:${t.fontBody}}`
+---
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {hidden && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {t.fontFaces.map((f) => <link rel="preload" href={f.src} as="font" type="font/woff2" crossorigin />)}
+    <style set:html={themeCss}></style>
+    {site.goatcounter && <script is:inline data-goatcounter={`https://${site.goatcounter}.goatcounter.com/count`} async src="https://gc.zgo.at/count.js"></script>}
+  </head>
+  <body>
+    <a href="#main" class="visually-hidden">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <!-- Shared cookie banner, Clarity loader and WhatsApp button: public/site-kit.js -->
+    <script
+      is:inline
+      src="/site-kit.js"
+      defer
+      data-site={site.name}
+      data-clarity={site.clarity.liveId || site.clarity.previewId}
+      data-whatsapp={site.contact.whatsapp}
+      data-whatsapp-message={site.contact.whatsappMessage}
+      data-policy="/cookies/"
+      data-brand={t.brand}
+      data-brand-text={t.brandText}
+    ></script>
+    <script is:inline>
+      // Third-party embeds (booking calendar, map) set their own cookies, so they load only on click.
+      document.querySelectorAll('[data-load-frame]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var f = document.createElement('iframe')
+          f.src = btn.getAttribute('data-load-frame')
+          f.title = btn.textContent
+          f.style.cssText = 'width:100%;height:42rem;border:0;border-radius:var(--radius);background:#fff'
+          btn.replaceWith(f)
+        })
+      })
+    </script>
+  </body>
+</html>

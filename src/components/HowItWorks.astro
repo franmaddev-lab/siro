@@ -1,0 +1,30 @@
+---
+import site from '../../site.config'
+const h = site.howItWorks
+---
+{h.enabled && (
+  <section class="section" id="how">
+    <div class="container">
+      {h.eyebrow && <p class="eyebrow">{h.eyebrow}</p>}
+      <h2>{h.heading}</h2>
+      <ol class="steps" style={`--n:${h.steps.length}`}>
+        {h.steps.map((s, i) => (
+          <li>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}
+<style>
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.5rem; }
+  @media (min-width: 640px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .steps { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } }
+  .steps li { border-top: 3px solid color-mix(in srgb, var(--ink) 15%, transparent); padding-top: 1rem; }
+  .steps li:first-child { border-top-color: var(--brand); }
+  .num { display: block; color: var(--brand); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  p { margin: 0; }
+</style>

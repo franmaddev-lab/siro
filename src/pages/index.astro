@@ -1,0 +1,91 @@
+---
+import site from '../../site.config'
+import Base from '../layouts/Base.astro'
+import PriceList from '../components/addons/PriceList.astro'
+import Booking from '../components/addons/Booking.astro'
+import Gallery from '../components/addons/Gallery.astro'
+import Reviews from '../components/addons/Reviews.astro'
+import Quote from '../components/addons/Quote.astro'
+import WhyUs from '../components/WhyUs.astro'
+import HowItWorks from '../components/HowItWorks.astro'
+const ss = site.servicesSection
+const quoteOn = site.addons.quote.mode !== 'off'
+const h = site.hero
+---
+<Base>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        {h.eyebrow && <p class="eyebrow">{h.eyebrow}</p>}
+        <h1>{h.heading}</h1>
+        <p class="lead">{h.text}</p>
+        <p class="actions">
+          <a class="btn" href={quoteOn ? '#quote' : '/contact/'}>{h.cta}</a>
+          {site.contact.phone && <a class="btn outline" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>Call {site.contact.phone}</a>}
+        </p>
+        {h.badges.length > 0 && <ul class="badges">{h.badges.map((b) => <li>{b}</li>)}</ul>}
+      </div>
+      {h.image && <img src={h.image} alt="" />}
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      {ss.eyebrow && <p class="eyebrow">{ss.eyebrow}</p>}
+      <h2>{ss.heading}</h2>
+      {ss.intro && <p class="lead">{ss.intro}</p>}
+      <div class="grid cols-3 services-grid">
+        {site.services.map((s) => (
+          <div class="card"><h3>{s.name}</h3><p class="muted">{s.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PriceList />
+  <Gallery />
+  <WhyUs />
+  <HowItWorks />
+  <Booking />
+  <Quote />
+  <Reviews />
+
+  {site.about.showOnHome && (
+    <section class="section alt">
+      <div class="container">
+        <h2>{site.about.heading}</h2>
+        <p class="lead">{site.about.paragraphs[0]}</p>
+        <p><a class="btn outline" href="/about/">More about us</a></p>
+      </div>
+    </section>
+  )}
+
+  {site.cta.heading && (
+    <section class="section cta">
+      <div class="container">
+        <h2>{site.cta.heading}</h2>
+        <p>{site.cta.text}</p>
+        <p class="actions">
+          <a class="btn invert" href={quoteOn ? '#quote' : '/contact/'}>{h.cta}</a>
+          {site.contact.phone && <a class="btn ghost" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>Call now</a>}
+        </p>
+      </div>
+    </section>
+  )}
+</Base>
+<style>
+  .hero { padding: clamp(3.5rem, 9vw, 6.5rem) 0; background: var(--surface); }
+  .hero h1 { font-weight: 800; max-width: 16ch; }
+  .badges { list-style: none; padding: 0; margin: 1.75rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-weight: 600; }
+  .badges li::before { content: '✓'; color: var(--brand); margin-right: 0.5rem; }
+  .services-grid { margin-top: 2rem; }
+  .cta { background: var(--brand); color: var(--brand-text); text-align: center; }
+  .cta h2 { max-width: none; }
+  .cta .actions { justify-content: center; }
+  .btn.invert { background: var(--brand-text); color: var(--brand); border-color: var(--brand-text); }
+  .btn.ghost { background: transparent; color: var(--brand-text); border-color: var(--brand-text); }
+  .hero-grid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 1000px) { .hero-grid:has(img) { grid-template-columns: 1.1fr 1fr; } }
+  .hero img { border-radius: var(--radius); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+</style>

@@ -1,0 +1,17 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.map
+---
+{a.mode !== 'off' && (
+  <div class="map">
+    <h2>Find us <DemoTag mode={a.mode} /></h2>
+    {a.mode === 'live' && a.embedUrl
+      ? <button type="button" class="btn outline" data-load-frame={a.embedUrl}>Show the map (loads Google Maps)</button>
+      : <div class="placeholder" role="img" aria-label="Sample map">Map of {site.contact.area || site.contact.address}</div>}
+  </div>
+)}
+<style>
+  .map { margin-top: 2rem; }
+  .placeholder { display: grid; place-items: center; min-height: 14rem; border-radius: var(--radius); background: var(--surface); color: var(--muted); border: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
+</style>

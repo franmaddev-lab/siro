@@ -1,0 +1,176 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const q = site.addons.quote
+const total = q.steps.length + 1
+---
+{q.mode !== 'off' && (
+  <section class="section quote" id="quote">
+    <div class="container quote-grid">
+      <div>
+        {q.eyebrow && <p class="eyebrow">{q.eyebrow}</p>}
+        <h2>{q.heading} <DemoTag mode={q.mode} /></h2>
+        <p class="intro">{q.intro}</p>
+        <ul class="bullets">
+          {q.bullets.map((b) => <li>{b}</li>)}
+          {site.contact.phone && <li>Prefer to talk? <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a></li>}
+        </ul>
+      </div>
+
+      <form class="wizard" data-quote data-mode={q.mode} data-whatsapp={site.contact.whatsapp} data-email={site.contact.email} data-site={site.name} novalidate>
+        <div class="progress" aria-hidden="true">{Array.from({ length: total }).map(() => <span></span>)}</div>
+
+        {q.steps.map((step, i) => (
+          <fieldset class="step" data-step hidden={i !== 0}>
+            <legend>{step.title}</legend>
+            <p class="hint">{step.hint}</p>
+            {step.fields.map((f, fi) => {
+              const name = `q${i}_${fi}`
+              if (f.type === 'choice') return (
+                <div class="field" role="group" aria-label={f.label} data-label={f.label}>
+                  <div class="choices">
+                    {f.options.map((o) => (
+                      <label class="choice">
+                        <input type="radio" name={name} value={o.label} />
+                        <span><strong>{o.label}</strong>{o.note && <small>{o.note}</small>}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )
+              if (f.type === 'select') return (
+                <div class="field" data-label={f.label}>
+                  <label for={name}>{f.label}</label>
+                  <select id={name} name={name}><option value="">Select</option>{f.options.map((o) => <option>{o}</option>)}</select>
+                </div>
+              )
+              return (
+                <div class="field" data-label={f.label}>
+                  <label for={name}>{f.label}</label>
+                  <textarea id={name} name={name} rows="3"></textarea>
+                </div>
+              )
+            })}
+          </fieldset>
+        ))}
+
+        <fieldset class="step" data-step hidden>
+          <legend>Where should we send your quote?</legend>
+          <p class="hint">We will be in touch personally.</p>
+          <div class="field" data-label="Name"><label for="q-name">Your name</label><input id="q-name" name="name" autocomplete="name" required /></div>
+          <div class="field" data-label="Phone"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" required /></div>
+          <div class="field" data-label="Postcode"><label for="q-post">Postcode</label><input id="q-post" name="postcode" autocomplete="postal-code" /></div>
+          <div class="send">
+            {site.contact.whatsapp && <button type="button" class="btn" data-send="whatsapp">Send on WhatsApp</button>}
+            {site.contact.email && <button type="button" class="btn outline" data-send="email">Send by email</button>}
+          </div>
+          <p class="small">Your details are only used to reply to your enquiry. Nothing is stored on this site.</p>
+        </fieldset>
+
+        <p class="notice" data-quote-error hidden role="alert"></p>
+        <pre class="notice" data-quote-result hidden role="status"></pre>
+        <div class="nav">
+          <button type="button" class="btn outline" data-back hidden>Back</button>
+          <button type="button" class="btn" data-next>Next</button>
+        </div>
+      </form>
+    </div>
+  </section>
+)}
+
+<script is:inline>
+  ;(function () {
+    var form = document.querySelector('[data-quote]')
+    if (!form) return
+    var steps = [].slice.call(form.querySelectorAll('[data-step]'))
+    var bars = form.querySelectorAll('.progress span')
+    var back = form.querySelector('[data-back]')
+    var next = form.querySelector('[data-next]')
+    var err = form.querySelector('[data-quote-error]')
+    var out = form.querySelector('[data-quote-result]')
+    var at = 0
+    var started = false
+
+    // Event names only, and only if the visitor accepted analytics cookies.
+    function track(name) { if (window.clarity) window.clarity('event', name) }
+
+    function show(i) {
+      at = i
+      steps.forEach(function (s, n) { s.hidden = n !== i })
+      bars.forEach(function (b, n) { b.classList.toggle('on', n <= i) })
+      back.hidden = i === 0
+      next.hidden = i === steps.length - 1
+      err.hidden = true
+    }
+
+    function value(field) {
+      var el = field.querySelector('input[type=radio]:checked, select, textarea, input:not([type=radio])')
+      return el ? el.value.trim() : ''
+    }
+
+    function fail(msg) { err.textContent = msg; err.hidden = false }
+
+    next.addEventListener('click', function () {
+      if (!started) { started = true; track('quote-started') }
+      var choice = steps[at].querySelector('.choices')
+      if (choice && !steps[at].querySelector('input[type=radio]:checked')) return fail('Please pick an option to continue.')
+      show(at + 1)
+    })
+    back.addEventListener('click', function () { show(at - 1) })
+
+    form.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-send]')
+      if (!btn) return
+      if (!form.elements.name.value.trim() || !form.elements.phone.value.trim()) return fail('Please add your name and phone number.')
+      var lines = ['Quote request from the ' + form.dataset.site + ' website', '']
+      form.querySelectorAll('[data-label]').forEach(function (f) {
+        var v = value(f)
+        if (v) lines.push(f.dataset.label.replace(' (optional)', '') + ': ' + v)
+      })
+      var text = lines.join('\n')
+      var how = btn.dataset.send
+      err.hidden = true
+      if (form.dataset.mode === 'demo') {
+        out.textContent = 'Demo only: nothing was sent. On the live site this message opens in ' + (how === 'whatsapp' ? 'WhatsApp' : 'the visitor\'s email app') + ':\n\n' + text
+        out.hidden = false
+        return
+      }
+      track('quote-sent-' + how)
+      if (how === 'whatsapp') window.open('https://wa.me/' + form.dataset.whatsapp + '?text=' + encodeURIComponent(text), '_blank', 'noopener')
+      else window.location.href = 'mailto:' + form.dataset.email + '?subject=' + encodeURIComponent('Quote request') + '&body=' + encodeURIComponent(text)
+    })
+
+    show(0)
+  })()
+</script>
+
+<style>
+  .quote { background: var(--ink); color: var(--paper); }
+  .quote-grid { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 1000px) { .quote-grid { grid-template-columns: 0.9fr 1.1fr; gap: 4rem; } }
+  .intro { opacity: 0.85; max-width: 30rem; }
+  .bullets { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.6rem; }
+  .bullets li::before { content: '✓'; color: var(--brand); font-weight: 700; margin-right: 0.75rem; }
+  .bullets a { color: inherit; font-weight: 700; }
+  .wizard { background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 1.5rem; }
+  .progress { display: flex; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .progress span { flex: 1; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--ink) 15%, transparent); }
+  .progress span.on { background: var(--brand); }
+  .step { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; padding: 0; }
+  .hint { color: var(--muted); margin: 0.25rem 0 1.25rem; }
+  .choices { display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .choice { margin: 0; font-weight: 400; }
+  .choice input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; }
+  .choice span { display: flex; flex-direction: column; justify-content: center; min-height: 3.5rem; height: 100%; padding: 0.6rem 0.9rem; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); border-radius: calc(var(--radius) * 0.6); cursor: pointer; }
+  .choice small { color: var(--muted); }
+  .choice input:checked + span { border-color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); background: color-mix(in srgb, var(--brand) 8%, var(--paper)); }
+  .choice input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .send { display: grid; gap: 0.6rem; }
+  @media (min-width: 640px) { .send { grid-template-columns: 1fr 1fr; } }
+  .small { font-size: 0.85rem; color: var(--muted); margin: 0.75rem 0 0; }
+  .nav { display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 1.25rem; }
+  .nav [data-next] { margin-left: auto; }
+  .notice { margin: 1rem 0 0; }
+  pre.notice { white-space: pre-wrap; font: inherit; font-size: 0.9rem; }
+</style>

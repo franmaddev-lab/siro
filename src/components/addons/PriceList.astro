@@ -1,0 +1,22 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.priceList
+---
+{a.mode !== 'off' && (
+  <section class="section alt" id="prices">
+    <div class="container">
+      <h2>Prices <DemoTag mode={a.mode} /></h2>
+      <ul class="prices">
+        {a.items.map((i) => (
+          <li><span><strong>{i.name}</strong><br /><span class="muted">{i.note}</span></span><span class="price">{i.price}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+<style>
+  .prices { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
+  .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
+  .price { font-weight: 700; white-space: nowrap; }
+</style>

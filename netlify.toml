@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  # Skip the build when only docs, Claude skills or editor files changed.
+  # Also skip every production build while the site is still a prospect preview
+  # (preview.mode in site.config.ts is not 'off'), so a preview never spends a paid deploy.
+  # A manual "Trigger deploy" reuses the same commit, so equal refs always build (otherwise
+  # Netlify would cancel it); FORCE_BUILD=1 as an environment variable also always builds.
+  ignore = """
+    [ -n "$FORCE_BUILD" ] && exit 1
+    if [ "$CONTEXT" = "production" ] && ! grep -Eq "^ +mode: 'off'," site.config.ts; then exit 0; fi
+    [ -z "$CACHED_COMMIT_REF" ] || [ "$CACHED_COMMIT_REF" = "$COMMIT_REF" ] && exit 1
+    git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . ':(exclude)*.md' ':(exclude).claude/' ':(exclude).vscode/' ':(exclude).github/' ':(exclude)skills/' ':(exclude)scripts/' ':(exclude)client-editing/'
+  """
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Password page and "preview expired" page for prospect previews. Controlled by
+# `preview.mode` in site.config.ts; does nothing when the mode is "off".
+[[edge_functions]]
+  function = "preview-gate"
+  path = "/*"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

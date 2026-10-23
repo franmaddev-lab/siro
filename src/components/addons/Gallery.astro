@@ -1,0 +1,18 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.gallery
+---
+{a.mode !== 'off' && a.images.length > 0 && (
+  <section class="section" id="gallery">
+    <div class="container">
+      <h2>Our work <DemoTag mode={a.mode} /></h2>
+      <div class="grid cols-3">
+        {a.images.map((i) => <img src={i.src} alt={i.alt} loading="lazy" />)}
+      </div>
+    </div>
+  </section>
+)}
+<style>
+  img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+</style>

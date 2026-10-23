@@ -1,0 +1,26 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.reviews
+---
+{a.mode !== 'off' && (
+  <section class="section" id="reviews">
+    <div class="container">
+      <h2>What customers say <DemoTag mode={a.mode} /></h2>
+      <div class="grid cols-3">
+        {a.items.map((r) => (
+          <figure class="card">
+            <p aria-label={`${r.stars} out of 5 stars`} class="stars">{'★'.repeat(r.stars)}</p>
+            <blockquote>{r.text}</blockquote>
+            <figcaption class="muted">{r.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+<style>
+  figure { margin: 0; }
+  blockquote { margin: 0 0 0.75rem; }
+  .stars { color: var(--brand); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+</style>

@@ -1,0 +1,203 @@
+# Example .pages.yml from rolling-spanner (prices, gallery, workshops). Copy it as .pages.yml at the
+# site's root and change the content entries to match the site's own content/*.json files.
+# Keep the rules: prices as numbers with min/max, max lengths on text, required alt text on images,
+# date pickers for dates, images-only media in public/uploads, settings hidden.
+#
+# Pages CMS (https://pagescms.org): simple forms for the client-editable content.
+# Open the site in app.pagescms.org and switch to the "edits" branch before editing; every save there
+# is a commit on "edits", never on main. Publishing happens from /publish (see docs/editing-your-site.md).
+
+media:
+  input: public/uploads
+  output: /uploads
+  categories: [image]
+
+settings:
+  # Hide the settings screen so the client can't change this file from the CMS.
+  hide: true
+  content:
+    # Keep any keys the forms don't show (such as the package ids) when saving.
+    merge: true
+
+content:
+  - name: prices
+    label: Prices
+    description: Service packages, repairs, extras and collection fees. Prices are in pounds, numbers only.
+    type: file
+    path: content/prices.json
+    format: json
+    fields:
+      - name: packages
+        label: Service packages
+        description: The three packages. You can rename them and change the price and note, but not add or remove one.
+        type: object
+        list: { min: 3, max: 3, collapsible: false }
+        fields:
+          - name: id
+            label: Package (fixed)
+            type: string
+            readonly: true
+          - name: name
+            label: Name
+            type: string
+            required: true
+            options: { maxlength: 40 }
+          - name: price
+            label: Price (£)
+            type: number
+            required: true
+            options: { min: 0, max: 2000 }
+          - name: note
+            label: One-line note
+            type: string
+            options: { maxlength: 60 }
+      - name: repairs
+        label: Repairs
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+            options: { maxlength: 40 }
+          - name: price
+            label: Price from (£)
+            type: number
+            required: true
+            options: { min: 0, max: 2000 }
+          - name: note
+            label: Note
+            type: string
+            options: { maxlength: 60 }
+      - name: extras
+        label: Extras
+        description: Customers can pick one extra per booking.
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+            options: { maxlength: 40 }
+          - name: price
+            label: Price (£)
+            type: number
+            required: true
+            options: { min: 0, max: 2000 }
+          - name: note
+            label: Note
+            type: string
+            options: { maxlength: 60 }
+      - name: collection
+        label: Collection fees
+        type: object
+        fields:
+          - name: near_miles
+            label: Short distance, up to (miles)
+            type: number
+            required: true
+            options: { min: 0, max: 100 }
+          - name: near_price
+            label: Short distance price (£)
+            type: number
+            required: true
+            options: { min: 0, max: 500 }
+          - name: far_miles
+            label: Longer distance, up to (miles)
+            type: number
+            required: true
+            options: { min: 0, max: 100 }
+          - name: far_price
+            label: Longer distance price (£)
+            type: number
+            required: true
+            options: { min: 0, max: 500 }
+          - name: weekend_extra
+            label: Weekend extra (£)
+            type: number
+            required: true
+            options: { min: 0, max: 500 }
+
+  - name: gallery
+    label: Photo gallery
+    description: The photos on the About us page, in the order shown.
+    type: file
+    path: content/gallery.json
+    format: json
+    fields:
+      - name: photos
+        label: Photos
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            required: true
+          - name: alt
+            label: Description for screen readers
+            description: Say what's in the photo, e.g. "A bike leaning on a stone wall above green fields".
+            type: string
+            required: true
+            options: { maxlength: 150 }
+          - name: caption
+            label: Caption
+            type: string
+            options: { maxlength: 50 }
+
+  - name: workshops
+    label: Workshops
+    description: Past dates drop off the site automatically. Leave the date empty for "Date to be confirmed".
+    type: file
+    path: content/workshops.json
+    format: json
+    fields:
+      - name: workshops
+        label: Workshops
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+            options: { maxlength: 60 }
+          - name: date
+            label: Date
+            type: date
+            options: { format: yyyy-MM-dd }
+          - name: time
+            label: Time
+            description: For example "10:00–12:00" or "About 2 hours".
+            type: string
+            options: { maxlength: 30 }
+          - name: price
+            label: Price (£)
+            description: Leave empty for "Price to be confirmed".
+            type: number
+            options: { min: 0, max: 1000 }
+          - name: places_left
+            label: Places left
+            description: Leave empty to say "Small group". Set to 0 when it's full.
+            type: number
+            options: { min: 0, max: 100 }
+          - name: description
+            label: Description
+            type: text
+            options: { maxlength: 300 }
+          - name: learn
+            label: What you'll learn
+            description: Optional, up to 5 short points.
+            type: string
+            list: { max: 5, collapsible: false }
+            options: { maxlength: 80 }
+          - name: booking_link
+            label: Booking link
+            description: Optional. A full link starting with https://. Without one, people register their interest instead.
+            type: string
+            pattern:
+              regex: '^(https?://\S+)?$'
+              message: Must be a full link starting with https://
+            options: { maxlength: 300 }

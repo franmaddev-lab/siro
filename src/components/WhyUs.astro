@@ -1,0 +1,40 @@
+---
+import site from '../../site.config'
+const w = site.whyUs
+---
+{w.enabled && (
+  <section class="section alt" id="why">
+    <div class="container why" class:list={{ 'has-stats': w.stats.length > 0 }}>
+      <div>
+        {w.eyebrow && <p class="eyebrow">{w.eyebrow}</p>}
+        <h2>{w.heading}</h2>
+        <ul class="points">
+          {w.points.map((p) => (
+            <li>
+              <span class="tick" aria-hidden="true">✓</span>
+              <span><strong>{p.title}</strong><br /><span class="muted">{p.text}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {w.stats.length > 0 && (
+        <dl class="stats">
+          {w.stats.map((s) => <div class="stat"><dt>{s.label}</dt><dd>{s.value}</dd></div>)}
+        </dl>
+      )}
+    </div>
+  </section>
+)}
+<style>
+  .why { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 1000px) { .why.has-stats { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .points { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.1rem; }
+  .points li { display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start; }
+  .tick { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--brand); color: var(--brand-text); font-size: 0.9rem; font-weight: 700; }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+  .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; min-height: 7.5rem; padding: 1.25rem; border-radius: var(--radius); background: var(--paper); }
+  .stat dd { margin: 0; font-family: var(--font-heading); font-size: clamp(2rem, 6vw, 2.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .stat dt { margin-top: 0.5rem; font-weight: 600; font-size: 0.95rem; }
+  .stat:first-child { background: var(--brand); color: var(--brand-text); }
+  .stat:last-child:nth-child(even) { background: var(--ink); color: var(--paper); }
+</style>

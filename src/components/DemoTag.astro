@@ -1,0 +1,5 @@
+---
+interface Props { mode: 'off' | 'demo' | 'live' }
+const { mode } = Astro.props
+---
+{mode === 'demo' && <span class="demo-tag" title="Sample content: nothing is sent or charged">Demo</span>}

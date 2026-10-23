@@ -1,0 +1,27 @@
+---
+import site from '../../site.config'
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'Who we are' },
+  { href: '/contact/', label: 'Get in touch' },
+]
+const path = Astro.url.pathname
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand">{site.name}</a>
+    <nav aria-label="Main">
+      {links.map((l) => (
+        <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+<style>
+  .site-header { border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); background: var(--paper); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem; padding: 0.9rem 0; }
+  .brand { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+  nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+  nav a { color: var(--ink); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
+  nav a[aria-current='page'] { color: var(--brand); box-shadow: 0 2px 0 var(--brand); }
+</style>

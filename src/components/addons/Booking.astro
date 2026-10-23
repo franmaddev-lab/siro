@@ -1,0 +1,92 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.booking
+const times = ['9:00', '10:30', '12:00', '14:00', '15:30']
+---
+{a.mode !== 'off' && (
+  <section class="section alt" id="book">
+    <div class="container">
+      <h2>Book a time <DemoTag mode={a.mode} /></h2>
+
+      {a.mode === 'live' && (
+        <div class="booking-live">
+          <p class="lead">Pick a time that suits you in our online calendar.</p>
+          <!-- The calendar comes from another company and sets its own cookies, so it only loads on click. -->
+          <button type="button" class="btn" data-load-frame={a.url}>Open the booking calendar</button>
+          <p class="muted small">Opens our booking provider's calendar here on the page.</p>
+        </div>
+      )}
+
+      {a.mode === 'demo' && (
+        <form class="booking-demo card" data-booking-demo>
+          <div class="field">
+            <label for="bk-service">Service</label>
+            <select id="bk-service">{a.services.map((s) => <option>{s}</option>)}</select>
+          </div>
+          <fieldset>
+            <legend>Day</legend>
+            <div class="chips" data-days></div>
+          </fieldset>
+          <fieldset>
+            <legend>Time</legend>
+            <div class="chips">
+              {times.map((t, i) => (
+                <label class="chip"><input type="radio" name="bk-time" value={t} checked={i === 0} /><span>{t}</span></label>
+              ))}
+            </div>
+          </fieldset>
+          <button class="btn" type="submit">Request this time</button>
+          <p class="notice" data-booking-result hidden role="status"></p>
+        </form>
+      )}
+    </div>
+  </section>
+)}
+
+<script is:inline>
+  ;(function () {
+    var form = document.querySelector('[data-booking-demo]')
+    if (form) {
+      var days = form.querySelector('[data-days]')
+      var d = new Date()
+      var added = 0
+      while (added < 5) {
+        d.setDate(d.getDate() + 1)
+        if (d.getDay() === 0) continue
+        var text = d.toLocaleDateString(document.documentElement.lang || 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+        var label = document.createElement('label')
+        label.className = 'chip'
+        label.innerHTML = '<input type="radio" name="bk-day"><span></span>'
+        label.querySelector('input').value = text
+        label.querySelector('input').checked = added === 0
+        label.querySelector('span').textContent = text
+        days.appendChild(label)
+        added++
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        var out = form.querySelector('[data-booking-result]')
+        var day = form.querySelector('input[name="bk-day"]:checked').value
+        var time = form.querySelector('input[name="bk-time"]:checked').value
+        out.textContent = 'Demo only: ' + form.querySelector('select').value + ' on ' + day + ' at ' + time + '. No booking was made and nothing was sent.'
+        out.hidden = false
+      })
+    }
+  })()
+</script>
+
+<!-- Global because the day chips are created in the browser, where scoped styles do not reach. -->
+<style is:global>
+  .booking-demo { max-width: 40rem; }
+  .booking-demo fieldset { border: 0; padding: 0; margin: 0 0 1rem; }
+  .booking-demo legend { font-weight: 600; margin-bottom: 0.4rem; padding: 0; }
+  .booking-demo .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .booking-demo .chip { margin: 0; font-weight: 400; }
+  .booking-demo .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; }
+  .booking-demo .chip span { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.4rem 0.9rem; border: 1px solid color-mix(in srgb, var(--ink) 30%, transparent); border-radius: var(--radius); background: var(--paper); cursor: pointer; }
+  .booking-demo .chip input:checked + span { background: var(--brand); color: var(--brand-text); border-color: var(--brand); }
+  .booking-demo .chip input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .booking-demo .notice { margin: 1rem 0 0; }
+  #book .small { font-size: 0.9rem; margin-top: 0.5rem; }
+</style>

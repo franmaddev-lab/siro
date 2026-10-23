@@ -1,0 +1,38 @@
+---
+import site from '../../../site.config'
+import DemoTag from '../DemoTag.astro'
+const a = site.addons.contactForm
+const live = a.mode === 'live'
+---
+{a.mode !== 'off' && (
+  <div>
+    <h2>Send a message <DemoTag mode={a.mode} /></h2>
+    <form
+      class="card"
+      name="contact"
+      method="POST"
+      action="/contact/thanks/"
+      data-netlify={live ? 'true' : undefined}
+      netlify-honeypot={live ? 'company' : undefined}
+      data-contact-demo={live ? undefined : ''}
+    >
+      {live && <input type="hidden" name="form-name" value="contact" />}
+      <p class="visually-hidden"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="field"><label for="cf-name">Your name</label><input id="cf-name" name="name" autocomplete="name" required /></div>
+      <div class="field"><label for="cf-phone">Phone or email</label><input id="cf-phone" name="contact" required /></div>
+      <div class="field"><label for="cf-msg">How can we help?</label><textarea id="cf-msg" name="message" rows="4" required></textarea></div>
+      <button class="btn" type="submit">Send message</button>
+      <p class="notice" data-contact-result hidden role="status" style="margin:1rem 0 0">Demo only: your message was not sent or stored.</p>
+    </form>
+  </div>
+)}
+<script is:inline>
+  ;(function () {
+    var f = document.querySelector('[data-contact-demo]')
+    if (!f) return
+    f.addEventListener('submit', function (e) {
+      e.preventDefault()
+      f.querySelector('[data-contact-result]').hidden = false
+    })
+  })()
+</script>
