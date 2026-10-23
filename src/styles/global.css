@@ -57,3 +57,22 @@ input, select, textarea {
 }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 [hidden] { display: none !important; }
+
+/* SiRo' look: the green wall and pink lettering of the sign, the spaced capitals of the menu. */
+body { font-size: 1.06rem; }
+h1, h2 { font-weight: 600; letter-spacing: -0.01em; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
+.eyebrow { font-weight: 600; letter-spacing: 0.4em; color: #b0606f; }
+.btn { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.85rem; }
+.hero { background: var(--brand) !important; color: var(--brand-text); }
+.hero h1 { color: #f2bfcb; }
+.hero .eyebrow, .hero .muted { color: var(--brand-text); }
+.hero .badges li::before { color: #f2bfcb !important; }
+.hero .btn:not(.outline) { background: #f2bfcb; color: var(--brand); border-color: #f2bfcb; }
+.hero .btn.outline { color: var(--brand-text); border-color: var(--brand-text); }
+#prices .price { font-family: var(--font-heading); font-weight: 600; color: var(--brand); }
+#prices strong { font-weight: 600; }
+.hero .lead { color: color-mix(in srgb, var(--brand-text) 85%, transparent); }
+/* Header stays on screen while scrolling; anchors land below it. */
+.site-header { position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 12px rgb(0 0 0 / 0.06); }
+section[id] { scroll-margin-top: 6.5rem; }

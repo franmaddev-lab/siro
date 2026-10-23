@@ -30,6 +30,9 @@ export type SiteConfig = {
     fontFaces: { family: string; src: string; weight: string }[]
   }
 
+  /** Header wordmark: big name with small wide-spaced lines above and below. Empty main uses `name`. */
+  logo: { main: string; top: string; bottom: string }
+
   contact: {
     phone: string
     /** Digits only, with country code, e.g. 447700900123. Empty hides the WhatsApp button. */
@@ -62,8 +65,11 @@ export type SiteConfig = {
     /** `group` starts a new heading in the list (e.g. Breakfast, Small plates). */
     priceList: { mode: AddonMode; heading: string; intro: string; items: { name: string; note: string; price: string; group?: string }[] }
     gallery: { mode: AddonMode; heading: string; images: { src: string; alt: string }[] }
-    /** `link` is the Google reviews page; `rating` like '4.8' and `count` show a summary badge. */
-    reviews: { mode: AddonMode; heading: string; link: string; rating: string; count: string; items: { name: string; text: string; stars: number }[] }
+    /**
+     * `sources` are review pages (Google, Tripadvisor) shown as buttons; each item names its
+     * source and links to it, opening in a new tab. `rating` like '4.8' shows a summary badge.
+     */
+    reviews: { mode: AddonMode; heading: string; rating: string; count: string; sources: { name: string; url: string }[]; items: { name: string; text: string; stars: number; source?: string }[] }
     /**
      * Step-by-step quote form. Nothing is stored: the last step opens the visitor's WhatsApp
      * or email app with the answers filled in. demo: shows the message instead of sending.
@@ -111,22 +117,30 @@ const site: SiteConfig = {
   url: '',
 
   theme: {
-    brand: '#2e4a36',
+    brand: '#2f4f3a',
     brandText: '#fbf3ee',
     ink: '#1f2a22',
     paper: '#fffaf6',
-    surface: '#f6e6e8',
+    surface: '#f7e7ea',
     muted: '#5d6a60',
     radius: '14px',
-    fontHeading: 'Georgia, "Times New Roman", serif',
-    fontBody: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-    fontFaces: [],
+    // Like the sign and menu: a soft, curly serif for the name and headings,
+    // and a clean geometric sans with wide-spaced capitals for labels and text.
+    fontHeading: 'Fraunces, Georgia, serif',
+    fontBody: '"Josefin Sans", system-ui, sans-serif',
+    fontFaces: [
+      { family: 'Fraunces', src: '/fonts/fraunces.woff2', weight: '100 900' },
+      { family: 'Josefin Sans', src: '/fonts/josefin-sans-400.woff2', weight: '400' },
+      { family: 'Josefin Sans', src: '/fonts/josefin-sans-600.woff2', weight: '600' },
+    ],
   },
+
+  logo: { main: "SiRo'", top: 'Mangia & Bevi', bottom: 'Café Bistrot' },
 
   contact: {
     phone: '01706 582954',
-    // Not known yet: the landline cannot take WhatsApp. Add a mobile to show the button.
-    whatsapp: '',
+    // PLACEHOLDER: Ofcom's fictional 07700 900xxx range, reaches no one. Swap for SiRo's mobile.
+    whatsapp: '447700900123',
     whatsappMessage: 'Hi, I found you through your website.',
     email: '',
     address: '16 Baillie Street, Rochdale, OL16 1JG',
@@ -148,7 +162,7 @@ const site: SiteConfig = {
     eyebrow: "Mangia & Bevi · Café Bistrot",
     heading: 'Come for the food, stay for the experience.',
     text: 'Fresh Italian cooking and warm, personal service on Baillie Street. Brunch from 10am, small plates, risotto and pasta into the evening.',
-    image: '/images/owners.jpg',
+    image: '/images/logo-wall.jpg',
     cta: 'Book a table',
     badges: ['Brunch 10am to 2pm', 'Small plates until 9pm', 'Private celebrations'],
   },
@@ -182,7 +196,7 @@ const site: SiteConfig = {
       'As chef, manager and owners, we believe in bringing out the best in each other and our team, so that every meal and every moment at our bistrot feels special.',
       "Whether you are here for a casual bite or a relaxing evening, we can't wait to welcome you.",
     ],
-    image: '/images/logo-wall.jpg',
+    image: '/images/owners.jpg',
     showOnHome: true,
   },
 
@@ -194,33 +208,32 @@ const site: SiteConfig = {
     priceList: {
       mode: 'live',
       heading: 'Menu',
-      intro: 'A taste of the menu. Prices in pounds. Allergies: please let our staff know.',
+      intro: 'A taste of the menu. Allergies: please let our staff know.',
       items: [
-        { group: 'Breakfast & brunch, 10am to 2pm', name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '12.75' },
-        { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil béarnaise on sourdough', price: '8.75' },
-        { name: "SiRo' Florentine", note: 'Sautéed garlic spinach, poached eggs, hollandaise on sourdough', price: '8.25' },
-        { name: "SiRo' Avotoast", note: 'Fresh avocado, creamy stracciatella, roasted cherry tomatoes and basil oil', price: '9.75' },
-        { name: "SiRo' PLT", note: 'A Mediterranean BLT with Parma ham on sourdough', price: '8.75' },
-        { name: "SiRo' Salmon Toast", note: 'Smoked salmon, scrambled eggs on sourdough, chive oil', price: '9.75' },
-        { name: "SiRo' French Toast", note: 'Banana, Nutella and crushed pistachio', price: '7.25' },
-        { name: 'Pastries', note: 'Selection at the bar, each / with coffee', price: '3.75 / 5.50' },
-        { group: 'Nibbles, 12pm to 9pm', name: 'Bruschetta Mix', note: 'Tomato salad, Parma ham and burrata, hummus, roast pepper and chive', price: '6.75' },
-        { name: 'Aubergine croquettes', note: 'With a creamy tomato and basil sauce', price: '6.25' },
-        { name: 'Potato and cheese croquettes', note: 'Neapolitan street food with pecorino and smoked provola', price: '6.25' },
-        { name: 'Mangia & Bevi', note: 'Spring onions wrapped in pancetta', price: '4.25' },
-        { group: 'Small plates', name: 'Risotto zafferano e gamberi', note: 'Saffron risotto with prawns, a twist on the Milanese classic', price: '13.25' },
-        { name: 'Fillet with beets', note: '180g beef fillet, beetroot sauce, chive oil and roast potatoes', price: '15.75' },
-        { name: 'Seabass in tempura', note: 'With roast peppers and courgette purée', price: '12.75' },
-        { name: 'Slow-cooked spezzatino', note: 'Beef stew in red wine with potatoes', price: '12.75' },
-        { name: "SiRo' Lasagna", note: 'Classic Italian beef lasagna', price: '9.75' },
-        { name: 'Fettuccine zucchine e gamberi', note: 'Fresh fettuccine, courgette cream and prawns', price: '10.75' },
+        { group: 'Breakfast & brunch, 10am to 2pm', name: "SiRo' Breakfast", note: 'Italian sausage, fresh burrata, roasted cherry tomatoes on toast, roast potatoes and eggs your way', price: '£12.75' },
+        { name: "SiRo' Benedict", note: 'Crispy Parma ham, poached eggs and basil béarnaise on sourdough', price: '£8.75' },
+        { name: "SiRo' Florentine", note: 'Sautéed garlic spinach, poached eggs, hollandaise on sourdough', price: '£8.25' },
+        { name: "SiRo' Avotoast", note: 'Fresh avocado, creamy stracciatella, roasted cherry tomatoes and basil oil', price: '£9.75' },
+        { name: "SiRo' PLT", note: 'A Mediterranean BLT with Parma ham on sourdough', price: '£8.75' },
+        { name: "SiRo' Salmon Toast", note: 'Smoked salmon, scrambled eggs on sourdough, chive oil', price: '£9.75' },
+        { name: "SiRo' French Toast", note: 'Banana, Nutella and crushed pistachio', price: '£7.25' },
+        { name: 'Pastries', note: 'Selection at the bar, each / with coffee', price: '£3.75 / £5.50' },
+        { group: 'Nibbles, 12pm to 9pm', name: 'Bruschetta Mix', note: 'Tomato salad, Parma ham and burrata, hummus, roast pepper and chive', price: '£6.75' },
+        { name: 'Aubergine croquettes', note: 'With a creamy tomato and basil sauce', price: '£6.25' },
+        { name: 'Potato and cheese croquettes', note: 'Neapolitan street food with pecorino and smoked provola', price: '£6.25' },
+        { name: 'Mangia & Bevi', note: 'Spring onions wrapped in pancetta', price: '£4.25' },
+        { group: 'Small plates', name: 'Risotto zafferano e gamberi', note: 'Saffron risotto with prawns, a twist on the Milanese classic', price: '£13.25' },
+        { name: 'Fillet with beets', note: '180g beef fillet, beetroot sauce, chive oil and roast potatoes', price: '£15.75' },
+        { name: 'Seabass in tempura', note: 'With roast peppers and courgette purée', price: '£12.75' },
+        { name: 'Slow-cooked spezzatino', note: 'Beef stew in red wine with potatoes', price: '£12.75' },
+        { name: "SiRo' Lasagna", note: 'Classic Italian beef lasagna', price: '£9.75' },
+        { name: 'Fettuccine zucchine e gamberi', note: 'Fresh fettuccine, courgette cream and prawns', price: '£10.75' },
       ],
     },
     gallery: {
       mode: 'live',
       heading: "Inside SiRo'",
       images: [
-        { src: '/images/owners.jpg', alt: 'Danilo and Luca at the bar' },
         { src: '/images/logo-wall.jpg', alt: "The SiRo' Mangia & Bevi sign" },
         { src: '/images/celebration.jpg', alt: 'A table set for a wedding celebration' },
       ],
@@ -228,14 +241,18 @@ const site: SiteConfig = {
     reviews: {
       mode: 'demo',
       heading: 'What our guests say',
-      // Google listing shared by the owner. Swap the sample quotes for real ones, with permission.
-      link: 'https://share.google/MXgmGyLXOlNn3g4n5',
       rating: '',
       count: '',
+      // Google: the listing the owner shared. Tripadvisor: a search until we have the exact page.
+      sources: [
+        { name: 'Google', url: 'https://share.google/MXgmGyLXOlNn3g4n5' },
+        { name: 'Tripadvisor', url: 'https://www.tripadvisor.co.uk/Search?q=SiRo%20Mangia%20Bevi%20Rochdale' },
+      ],
+      // Samples: swap for real Google and Tripadvisor quotes.
       items: [
-        { name: 'Sample guest', text: 'Lovely food and such a warm welcome. The risotto was amazing.', stars: 5 },
-        { name: 'Sample guest', text: 'Best brunch in Rochdale. The Benedict is a must.', stars: 5 },
-        { name: 'Sample guest', text: 'Had our celebration here and they made it really special.', stars: 5 },
+        { name: 'Sample guest', text: 'Lovely food and such a warm welcome. The risotto was amazing.', stars: 5, source: 'Google' },
+        { name: 'Sample guest', text: 'Best brunch in Rochdale. The Benedict is a must.', stars: 5, source: 'Tripadvisor' },
+        { name: 'Sample guest', text: 'Had our celebration here and they made it really special.', stars: 5, source: 'Google' },
       ],
     },
     quote: { mode: 'off', eyebrow: '', heading: '', intro: '', bullets: [], steps: [] },

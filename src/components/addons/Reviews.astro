@@ -2,6 +2,7 @@
 import site from '../../../site.config'
 import DemoTag from '../DemoTag.astro'
 const a = site.addons.reviews
+const urlFor = (name?: string) => a.sources.find((x) => x.name === name)?.url
 ---
 {a.mode !== 'off' && (
   <section class="section reviews" id="reviews">
@@ -14,14 +15,18 @@ const a = site.addons.reviews
       </div>
       <div class="grid cols-3">
         {a.items.map((r) => (
-          <figure class="card">
-            <p aria-label={`${r.stars} out of 5 stars`} class="stars">{'★'.repeat(r.stars)}</p>
-            <blockquote>“{r.text}”</blockquote>
-            <figcaption>{r.name}</figcaption>
-          </figure>
+          <a class="card review" href={urlFor(r.source)} target="_blank" rel="noopener">
+            <figure>
+              <p aria-label={`${r.stars} out of 5 stars`} class="stars">{'★'.repeat(r.stars)}</p>
+              <blockquote>“{r.text}”</blockquote>
+              <figcaption>{r.name}{r.source && <span class="src">on {r.source} ↗</span>}</figcaption>
+            </figure>
+          </a>
         ))}
       </div>
-      {a.link && <p class="more"><a class="btn invert" href={a.link} rel="noopener">Read all our reviews on Google</a></p>}
+      {a.sources.length > 0 && (
+        <p class="more">{a.sources.map((x) => <a class="btn invert" href={x.url} target="_blank" rel="noopener">Read our reviews on {x.name} ↗</a>)}</p>
+      )}
     </div>
   </section>
 )}
@@ -35,6 +40,10 @@ const a = site.addons.reviews
   figcaption { color: var(--muted); }
   .stars { color: #c9877f; letter-spacing: 0.1em; margin: 0 0 0.5rem; }
   .summary .stars { color: var(--surface); }
-  .more { margin-top: 1.75rem; text-align: center; }
+  .more { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+  .review { display: block; text-decoration: none; transition: transform 0.15s; }
+  .review:hover { transform: translateY(-3px); }
+  figcaption { display: flex; justify-content: space-between; gap: 1rem; }
+  .src { font-size: 0.85rem; color: var(--brand); }
   .btn.invert { background: var(--brand-text); color: var(--brand); border-color: var(--brand-text); }
 </style>
