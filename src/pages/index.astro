@@ -33,7 +33,7 @@ const h = site.hero
           {site.contact.hours[0] && <a href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>{site.contact.hours[0].days}, {site.contact.hours[0].time}</a>}
         </p>
       </div>
-      {h.showLogo ? <div class="hero-logo"><LogoFull /></div> : h.image && <img src={h.image} alt="" />}
+      {h.showLogo ? <div class="hero-logo"><LogoFull animate /></div> : h.image && <img src={h.image} alt="" />}
     </div>
   </section>
 
