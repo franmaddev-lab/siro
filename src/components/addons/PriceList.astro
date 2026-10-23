@@ -48,8 +48,9 @@ for (const i of a.items) {
   @media (min-width: 900px) { .groups { columns: 2; column-gap: 3rem; } }
   .group { break-inside: avoid; }
   .group[hidden] { display: none; }
-  h3 { margin: 0; padding-top: 1.75rem; font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
-  .when { margin: 0.2rem 0 0.25rem; color: var(--muted); font-size: 0.9rem; }
+  h3 { margin: 0; padding-top: 1.75rem; text-align: center; font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
+  /* Centred section names, with the serving times in pink so each section stands out. */
+  .when { margin: 0.25rem 0 0.5rem; color: #b0606f; font-weight: 600; font-size: 0.9rem; text-align: center; }
   .prices { list-style: none; margin: 0; padding: 0; }
   .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
   .note { color: var(--muted); }
