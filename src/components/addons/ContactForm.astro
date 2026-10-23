@@ -5,10 +5,9 @@ const a = site.addons.contactForm
 const live = a.mode === 'live'
 ---
 {a.mode !== 'off' && (
-  <div>
+  <div class="card form-card">
     <h2>Send a message <DemoTag mode={a.mode} /></h2>
     <form
-      class="card"
       name="contact"
       method="POST"
       action="/contact/thanks/"

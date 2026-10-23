@@ -104,10 +104,7 @@ const h = site.hero
   .ul-link:hover .arrow, .ul-link:focus-visible .arrow { transform: translateX(0.4rem); }
   @media (max-width: 640px) { .ul-link { font-size: 1.3rem; } .links { gap: 1rem 1.75rem; } }
   .ico { width: 1.15em; height: 1.15em; margin-right: 0.5em; vertical-align: -0.2em; }
-  /* The logo sits in a round plaque (darker green disc, thin pink double ring) so it doesn't float. */
-  .hero-logo { color: #f2bfcb; max-width: 27rem; justify-self: center; width: 100%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; padding: 13%;
-    background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--brand) 88%, white), color-mix(in srgb, var(--brand) 82%, black));
-    box-shadow: inset 0 0 0 10px color-mix(in srgb, var(--brand) 82%, black), inset 0 0 0 12px color-mix(in srgb, #f2bfcb 70%, transparent), inset 0 0 0 17px color-mix(in srgb, var(--brand) 82%, black), inset 0 0 0 18px color-mix(in srgb, #f2bfcb 45%, transparent), 0 20px 50px rgb(0 0 0 / 0.25); }
+  .hero-logo { color: #f2bfcb; max-width: 30rem; justify-self: center; width: 100%; }
   .hero-logo :global(svg) { width: 100%; height: auto; }
   @media (min-width: 1000px) { .hero-grid:has(.hero-logo) { grid-template-columns: 1.1fr 1fr; } }
   .hero-grid { display: grid; gap: 2rem; align-items: center; }

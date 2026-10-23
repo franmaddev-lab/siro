@@ -43,12 +43,12 @@ for (const i of a.items) {
   .pills button { font: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.3rem 0.8rem; white-space: nowrap; border-radius: 999px; border: 2px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
   .pills button[aria-pressed='true'] { background: var(--brand); color: var(--brand-text); }
   /* Like their printed menu: two columns, name and price on one line, a short note below. */
-  .menu-box { margin-top: 1.5rem; background: var(--paper); border-radius: var(--radius); padding: 0.5rem clamp(1.1rem, 4vw, 2.75rem) 1.75rem; box-shadow: 0 12px 30px rgb(0 0 0 / 0.07); border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); }
+  .menu-box { margin-top: 1.5rem; background: var(--paper); border-radius: 0; padding: 0.5rem clamp(1.1rem, 4vw, 2.75rem) 1.75rem; box-shadow: 0 12px 30px rgb(0 0 0 / 0.07); border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); }
   .groups { margin-top: 0; }
   @media (min-width: 900px) { .groups { columns: 2; column-gap: 3rem; } }
   .group { break-inside: avoid; }
   .group[hidden] { display: none; }
-  h3 { margin: 0; padding-top: 1.75rem; font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
+  h3 { margin: 0; padding-top: 1.75rem; font-family: 'SiRo Sign', var(--font-body); font-weight: 400; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; }
   .when { margin: 0.2rem 0 0.25rem; color: var(--muted); font-size: 0.9rem; }
   .prices { list-style: none; margin: 0; padding: 0; }
   .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }

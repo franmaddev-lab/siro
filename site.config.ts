@@ -135,8 +135,9 @@ const site: SiteConfig = {
       { family: 'Fraunces', src: '/fonts/fraunces.woff2', weight: '100 900' },
       { family: 'Josefin Sans', src: '/fonts/josefin-sans-400.woff2', weight: '400' },
       { family: 'Josefin Sans', src: '/fonts/josefin-sans-600.woff2', weight: '600' },
-      // Rounded capitals close to MANGIA & BEVI / CAFÉ BISTROT on the sign.
-      { family: 'Fredoka', src: '/fonts/fredoka.woff2', weight: '300 700' },
+      // SiRo Sign: capitals traced from the MANGIA & BEVI / CAFÉ BISTROT lettering on their sign
+      // (missing letters drawn to match). Source and build scripts in design/.
+      { family: 'SiRo Sign', src: '/fonts/siro-sign.woff2', weight: '400' },
     ],
   },
 
