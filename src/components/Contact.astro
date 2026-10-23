@@ -9,26 +9,36 @@ const c = site.contact
     <p class="eyebrow">Get in touch</p>
     <h2>Come and see us</h2>
     <div class="grid cols-2">
+      <div class="find">
+        <h3>Find us</h3>
+        {c.hours.length > 0 && (
+          <ul class="details">{c.hours.map((h) => <li><strong>{h.days}</strong><span>{h.time}</span></li>)}</ul>
+        )}
+        <Map />
+      </div>
       <div>
+        <h3>Contact us</h3>
         <ul class="details">
           {c.phone && <li><strong>Phone</strong><a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a></li>}
           {c.whatsapp && <li><strong>WhatsApp</strong><a href={`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(c.whatsappMessage)}`} rel="noopener">Message us</a></li>}
           {c.email && <li><strong>Email</strong><a href={`mailto:${c.email}`}>{c.email}</a></li>}
           {c.address && <li><strong>Address</strong><span>{c.address}</span></li>}
         </ul>
-        {c.hours.length > 0 && (
-          <>
-            <h3>Opening hours</h3>
-            <ul class="details">{c.hours.map((h) => <li><strong>{h.days}</strong><span>{h.time}</span></li>)}</ul>
-          </>
-        )}
-        <Map />
+        <ContactForm />
       </div>
-      <ContactForm />
     </div>
   </div>
 </section>
 <style>
   .details { list-style: none; padding: 0; margin: 0 0 1.5rem; }
   .details li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+  .find :global(.map) { margin-top: 0; }
+  .find :global(.map h2) { display: none; }
+  .details li { grid-template-columns: auto 1fr; gap: 1.5rem; }
+  .details strong { white-space: nowrap; min-width: 7rem; }
+  /* Map tile: click to load Google Maps (it sets cookies, so it never loads on its own). */
+  .find :global([data-load-frame]) { display: grid; place-items: center; width: 100%; min-height: 20rem; border-radius: var(--radius); border: 0; background: var(--brand) url('/images/map-tile.svg') center / cover; color: var(--brand-text); font-size: 0.85rem; padding: 1rem; align-content: center; gap: 0.25rem; }
+  .find :global([data-load-frame])::before { content: '📍'; display: block; font-size: 2rem; margin-bottom: 0.5rem; }
+  .find :global(iframe) { height: 20rem !important; }
+  #contact .grid > div:last-child :global(h2) { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; margin-top: 2rem; max-width: none; display: flex; align-items: center; gap: 0.75rem; }
 </style>
