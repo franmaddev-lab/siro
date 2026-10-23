@@ -166,7 +166,7 @@ const site: SiteConfig = {
     image: '/images/logo-wall.jpg',
     showLogo: true,
     cta: 'Book a table',
-    badges: ['Brunch 10am to 2pm', 'Small plates until 9pm', 'Private celebrations'],
+    badges: [],
   },
 
   servicesSection: { eyebrow: 'Eat & drink', heading: 'From morning coffee to an evening glass of wine.', intro: '' },
