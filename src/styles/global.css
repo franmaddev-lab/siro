@@ -105,3 +105,8 @@ blockquote { font-weight: 300; }
 @media (min-width: 640px) { #why h2 { white-space: nowrap; } }
 #follow h2 { max-width: none; }
 @media (min-width: 900px) { #follow h2 { white-space: nowrap; } }
+/* Keep to the site's fonts: the shared cookie banner otherwise uses the system font. */
+.sk-cookie, .sk-cookie * { font-family: var(--font-body) !important; }
+.sk-cookie h2 { font-family: var(--font-heading) !important; font-weight: 400 !important; }
+#contact button[type='submit'] { width: 100%; }
+button, input, select, textarea { font-family: inherit; }
