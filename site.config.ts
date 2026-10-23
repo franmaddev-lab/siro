@@ -166,7 +166,7 @@ const site: SiteConfig = {
     text: 'Fresh Italian cooking and warm, personal service on Baillie Street.\nBrunch from 10am, small plates, risotto and pasta into the evening.',
     image: '/images/logo-wall.jpg',
     showLogo: true,
-    cta: 'Book a table',
+    cta: 'Get in touch',
     badges: [],
   },
 
@@ -200,11 +200,12 @@ const site: SiteConfig = {
     showOnHome: true,
   },
 
-  cta: { heading: 'Hungry yet?', text: 'Book a table, or just drop in. Mangia e bevi!' },
+  cta: { heading: 'Hungry yet?', text: 'Call us to book a table, or just drop in. Mangia e bevi!' },
 
   addons: {
     contactForm: { mode: 'demo' },
-    booking: { mode: 'demo', url: '', services: ['Table for brunch', 'Table for lunch or dinner', 'Private celebration'] },
+    // Off for now; set to 'demo' to show the Book a time section again.
+    booking: { mode: 'off', url: '', services: ['Table for brunch', 'Table for lunch or dinner', 'Private celebration'] },
     priceList: {
       mode: 'live',
       heading: 'Menu',

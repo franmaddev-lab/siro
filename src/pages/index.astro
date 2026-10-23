@@ -69,7 +69,7 @@ const h = site.hero
         <h2>{site.cta.heading}</h2>
         <p>{site.cta.text}</p>
         <p class="actions">
-          <a class="btn invert" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '#contact'}><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>{h.cta}</a>
+          <a class="btn invert" href={quoteOn ? '#quote' : site.addons.booking.mode !== 'off' ? '#book' : '#contact'}><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4Z"/></svg>{h.cta}</a>
           {site.contact.phone && <a class="btn invert" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>Call now</a>}
         </p>
       </div>
