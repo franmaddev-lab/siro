@@ -70,7 +70,7 @@ h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter
 .hero .badges li::before { color: #f2bfcb !important; }
 .hero .btn:not(.outline) { background: #f2bfcb; color: var(--brand); border-color: #f2bfcb; }
 .hero .btn.outline { color: var(--brand-text); border-color: var(--brand-text); }
-#prices .price { font-family: var(--font-heading); font-weight: 400; color: var(--brand); }
+#prices .price { font-family: var(--font-body); font-weight: 600; color: var(--brand); }
 #prices strong { font-weight: 600; color: var(--ink); }
 .hero .lead { color: color-mix(in srgb, var(--brand-text) 85%, transparent); }
 /* Header stays on screen while scrolling; anchors land below it. */
