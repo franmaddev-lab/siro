@@ -1,6 +1,6 @@
 ---
 import site from '../../site.config'
-import LogoFull from './LogoFull.astro'
+import LogoWord from './LogoWord.astro'
 const links = [
   ...(site.addons.priceList.mode !== 'off' ? [{ href: '/#prices', label: site.addons.priceList.heading || 'Prices' }] : []),
   ...(site.addons.reviews.mode !== 'off' ? [{ href: '/#reviews', label: 'Reviews' }] : []),
@@ -11,7 +11,9 @@ const links = [
 <header class="site-header" data-header>
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
-      {site.logo.svg ? <LogoFull /> : site.name}
+      {site.logo.svg
+        ? <span class="lockup"><LogoWord /><span class="sub"><span>Mangia &amp; Bevi</span><span>Café Bistrot</span></span></span>
+        : site.name}
     </a>
     <div class="right">
       <button type="button" class="burger" aria-expanded="false" aria-controls="main-nav" aria-label="Menu">
@@ -24,35 +26,36 @@ const links = [
   </div>
 </header>
 <style>
-  .site-header { border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); background: var(--paper); }
-  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.5rem; padding: 0.75rem 0; }
-  .brand { display: block; color: var(--brand); line-height: 0; text-decoration: none; }
-  .brand :global(svg) { height: 4.5rem; width: auto; }
+  .site-header { border-bottom: 1px solid color-mix(in srgb, var(--brand-text) 12%, transparent); background: var(--brand); color: var(--brand-text); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.5rem; padding: 0.9rem 0; }
+  .brand { display: block; color: #f2bfcb; line-height: 0; text-decoration: none; }
+  .lockup { display: inline-flex; align-items: center; gap: 0.9rem; }
+  .brand :global(svg) { height: 2.6rem; width: auto; }
+  .sub { display: flex; flex-direction: column; gap: 0.35rem; padding-left: 0.9rem; border-left: 1.5px solid color-mix(in srgb, #f2bfcb 60%, transparent); font-family: var(--font-body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; line-height: 1; color: var(--brand-text); }
   nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
-  nav a { color: var(--ink); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
+  nav a { color: var(--brand-text); text-decoration: none; padding: 0.4rem 0; font-weight: 600; }
+  nav a:hover { color: #f2bfcb; }
   .btn.small { padding: 0.45rem 1rem; color: var(--brand-text); }
   .right { display: none; align-items: center; gap: 0.75rem; }
   .burger { width: 2.75rem; height: 2.75rem; border: 0; background: transparent; display: grid; align-content: center; gap: 5px; padding: 0.6rem; cursor: pointer; }
-  .burger span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+  .burger span { display: block; height: 2px; background: var(--brand-text); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
   .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
   .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   @media (max-width: 899px) {
-    .brand :global(svg) { height: 3.25rem; }
+    .brand :global(svg) { height: 2.1rem; }
+    .sub { font-size: 0.55rem; letter-spacing: 0.28em; gap: 0.3rem; padding-left: 0.7rem; }
+    .lockup { gap: 0.7rem; }
     .right { display: flex; }
     .book-desktop { display: none; }
     nav { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem 0 0.75rem; }
-    nav a { padding: 0.9rem 0; font-size: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+    nav a { padding: 0.9rem 0; font-size: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--brand-text) 15%, transparent); }
     .site-header.open nav { display: flex; }
   }
   /* Phones, home page: the big logo sits in the hero; once it scrolls away the small one appears here. */
   @media (max-width: 899px) {
     .brand { transition: opacity 0.35s ease, transform 0.35s ease; transform-origin: left center; }
     .site-header.logo-in-hero .brand { opacity: 0; transform: translateY(1.5rem) scale(1.6); pointer-events: none; }
-    /* At the top the header melts into the green hero (only the menu button shows), then turns solid. */
-    .site-header { transition: background-color 0.35s, box-shadow 0.35s, border-color 0.35s; }
-    .site-header.logo-in-hero:not(.open) { background: var(--brand); border-bottom-color: transparent; box-shadow: none; }
-    .site-header.logo-in-hero:not(.open) .burger span { background: var(--brand-text); }
   }
 </style>
 <script>

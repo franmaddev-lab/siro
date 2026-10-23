@@ -74,7 +74,7 @@ h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; letter
 #prices strong { font-weight: 600; color: var(--ink); }
 .hero .lead { color: color-mix(in srgb, var(--brand-text) 85%, transparent); }
 /* Header stays on screen while scrolling; anchors land below it. */
-.site-header { position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 12px rgb(0 0 0 / 0.06); }
+.site-header { position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 14px rgb(0 0 0 / 0.18); }
 section[id] { scroll-margin-top: 6.5rem; }
 
 /* WhatsApp: round icon-only button (overrides the shared site-kit.js style, which shows a label). */
