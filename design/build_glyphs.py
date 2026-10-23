@@ -8,7 +8,7 @@ def load(n):
     im=im.resize((max(1,round(im.width*s)),H),Image.LANCZOS)
     # Slightly thinner than the sign so the small counters (A, B, R, O...) stay open.
     return thin(im.point(lambda v:255 if v>140 else 0))
-def thin(im, blur=10, cut=236):
+def thin(im, blur=10, cut=230):
     # Pad first so the outer edges thin too (letters are cropped tight), then crop back.
     P=30; pad=Image.new('L',(im.width+2*P,im.height+2*P),0); pad.paste(im,(P,P))
     t=pad.filter(ImageFilter.GaussianBlur(blur)).point(lambda v:255 if v>cut else 0)
